@@ -12,7 +12,7 @@ class App extends Component {
         <div className="flexible-content">
           <TopNavigation />
           <SideNavigation />
-          <main id="content" className="p-5">
+          <main id="content" className="p-xl-5 p-lg-4 p-3">
             <Routes />
           </main>
           <Footer />

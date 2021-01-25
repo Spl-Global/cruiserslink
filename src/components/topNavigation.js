@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import logo from "../assets/cruiserslink.png";
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBIcon } from 'mdbreact';
 
 class TopNavigation extends Component {
@@ -20,38 +21,37 @@ class TopNavigation extends Component {
 
     render() {
         return (
-            <MDBNavbar className="flexible-navbar" light expand="md" scrolling>
-                <MDBNavbarBrand href="/">
-                    <strong>MDB</strong>
+            <MDBNavbar className="flexible-navbar" light expand="lg" scrolling>
+                <MDBNavbarBrand href="/" className="d-block d-lg-none">
+                    <img alt="CruisersLink Logo" className="img-fluid" src={logo} width="150"/>
                 </MDBNavbarBrand>
                 <MDBNavbarToggler onClick = { this.onClick } />
                 <MDBCollapse isOpen = { this.state.collapse } navbar>
-                    <MDBNavbarNav left>
-                        <MDBNavItem active>
-                            <MDBNavLink to="#">Home</MDBNavLink>
+                    <MDBNavbarNav left className="d-block d-lg-none">
+                        <MDBNavItem>
+                            <MDBNavLink activeClassName="active" exact={true} to="/">
+                            <MDBIcon fas icon="tachometer-alt" className="mr-2"/>Dashboard
+                            </MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem>
-                            <a rel="noopener noreferrer" className="nav-link Ripple-parent" href="https://mdbootstrap.com/docs/react/" target="_blank">About MDB</a>
+                            <MDBNavLink activeClassName="active" className="nav-link Ripple-parent" to="/users">
+                                <MDBIcon fas icon="users" className="mr-2"/>Users
+                            </MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem>
-                            <a rel="noopener noreferrer" className="nav-link Ripple-parent" href="https://mdbootstrap.com/docs/react/getting-started/download/" target="_blank">Free download</a>
+                            <MDBNavLink activeClassName="active" className="nav-link Ripple-parent" to="/settings">
+                                <MDBIcon fas icon="cog" className="mr-2"/>Settings
+                            </MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem>
-                            <a rel="noopener noreferrer"  className="nav-link Ripple-parent" href="https://mdbootstrap.com/bootstrap-tutorial/" target="_blank">Free tutorials</a>
+                            <MDBNavLink activeClassName="active"  className="nav-link Ripple-parent" to="/login">
+                                <MDBIcon fas icon="sign-in-alt" className="mr-2"/>Login
+                            </MDBNavLink>
                         </MDBNavItem>
                     </MDBNavbarNav>
                     <MDBNavbarNav right>
                         <MDBNavItem>
-                            <a className="nav-link navbar-link" rel="noopener noreferrer" target="_blank" href="https://pl-pl.facebook.com/mdbootstrap/"><MDBIcon fab icon="facebook" /></a>
-                        </MDBNavItem>
-                        <MDBNavItem>
-                            <a className="nav-link navbar-link" rel="noopener noreferrer" target="_blank" href="https://twitter.com/mdbootstrap"><MDBIcon fab icon="twitter" /></a>
-                        </MDBNavItem>
-                        <MDBNavItem>
-                            <a className="border border-light rounded mr-1 nav-link Ripple-parent" rel="noopener noreferrer" href="https://github.com/mdbootstrap/React-Bootstrap-with-Material-Design" target="_blank"><MDBIcon fab icon="github" className="mr-2"/>MDB GitHub</a>
-                        </MDBNavItem>
-                        <MDBNavItem>
-                            <a className="border border-light rounded mr-1 nav-link Ripple-parent" rel="noopener noreferrer" href="https://mdbootstrap.com/products/react-ui-kit/" target="_blank"><MDBIcon fab icon="github" className="mr-2"/>Go Pro</a>
+                            <a className="nav-link Ripple-parent" href="#"><MDBIcon fas icon="sign-out-alt" className="mr-2"/>Logout</a>
                         </MDBNavItem>
                     </MDBNavbarNav>
                 </MDBCollapse>

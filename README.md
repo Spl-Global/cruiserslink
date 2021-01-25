@@ -1,6 +1,6 @@
-# mdbreact-admin-template-free
+# cruiserslink
 
-> MDB - React Admin Dashboard Free
+> CruisersLink Admin Dashboard
 
 ## Build Setup
 

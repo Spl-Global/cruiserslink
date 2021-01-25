@@ -1,10 +1,14 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import DashboardPage from './pages/DashboardPage';
-import ProfilePage from './pages/ProfilePage';
-import TablesPage from './pages/TablesPage';
-import MapsPage from './pages/MapsPage';
-import NotFoundPage from './pages/NotFoundPage';
+import SettingsPage from './pages/SettingsPage';
+import UsersPage from './pages/UsersPage';
+import ServicesPage from './pages/ServicesPage';
+import EditServicePage from './pages/EditServicePage';
+import EditSubcategoryPage from './pages/EditSubcategoryPage';
+import SubcategoryPage from './pages/SubcategoryPage';
+import LoginPage from './pages/LoginPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
 
 class Routes extends React.Component {
   render() {
@@ -12,10 +16,14 @@ class Routes extends React.Component {
       <Switch>
         <Route path='/' exact component={DashboardPage} />
         <Route path='/dashboard' component={DashboardPage} />
-        <Route path='/profile' component={ProfilePage} />
-        <Route path='/tables' component={TablesPage} />
-        <Route path='/maps' component={MapsPage} />
-        <Route path='/404' component={NotFoundPage} />
+        <Route path='/settings' component={SettingsPage} />
+        <Route path='/users' component={UsersPage} />
+        <Route path='/services' component={ServicesPage} />
+        <Route path='/edit_service' component={EditServicePage} />
+        <Route path='/subcategory' component={SubcategoryPage} />
+        <Route path='/edit_subcategory' component={EditSubcategoryPage} />
+        <Route path='/login' component={LoginPage} />
+        <Route path='/forgot-password' component={ForgotPasswordPage} />
       </Switch>
     );
   }

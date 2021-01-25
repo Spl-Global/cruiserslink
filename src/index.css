@@ -56,7 +56,7 @@ main {
 
 .sidebar-fixed .logo-wrapper img{
   width: 100%;
-  padding: 2.5rem;
+  padding: 1.5rem;
 }
 
 .list-group-item {
@@ -178,7 +178,7 @@ main {
   margin-left: 270px;
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 991.98px) {
   .sidebar-fixed {
     display: none;
   }
@@ -212,6 +212,32 @@ main {
   }
 }
 
+.form-control:-webkit-autofill, .form-control:-webkit-autofill:hover, .form-control:-webkit-autofill:focus{
+  -webkit-text-fill-color: #333;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset !important;
+  box-shadow: 0 0 0px 1000px #fff inset !important;
+	transition: background-color 5000s ease-in-out 0s !important;
+}
 
+.form-control:-webkit-autofill:focus::first-line {
+  font-family: sans-serif;
+  font-size: 1rem;
+}
 
+.md-form>input[type]:-webkit-autofill:not(.browser-default):not([type="search"])+label, .md-form>input[type="time"]:not(.browser-default)+label{
+	transform: translateY(-14px) scale(0.8) !important;
+	font-size: initial;
+	transform-origin: 0% 100%;
+}
 
+.md-form .prefix {
+	top: 0.45rem;
+}
+
+#content{
+  height: calc(100vh - 119px);
+}
+
+.nav-link.active{
+  background-color: rgba(0,0,0,0.1);
+}

@@ -1,43 +1,55 @@
 import React from 'react';
-import logo from "../assets/mdb-react.png";
+import logo from "../assets/cruiserslink.png";
 import { MDBListGroup, MDBListGroupItem, MDBIcon } from 'mdbreact';
 import { NavLink } from 'react-router-dom';
 
 const TopNavigation = () => {
     return (
         <div className="sidebar-fixed position-fixed">
-            <a href="#!" className="logo-wrapper waves-effect">
-                <img alt="MDB React Logo" className="img-fluid" src={logo}/>
+            <a href="/" className="logo-wrapper waves-effect">
+                <img alt="CruisersLink Logo" className="img-fluid" src={logo}/>
             </a>
             <MDBListGroup className="list-group-flush">
                 <NavLink exact={true} to="/" activeClassName="activeClass">
                     <MDBListGroupItem>
-                        <MDBIcon icon="chart-pie" className="mr-3"/>
+                        <MDBIcon icon="tachometer-alt" className="mr-3"/>
                         Dashboard
                     </MDBListGroupItem>
                 </NavLink>
-                <NavLink to="/profile" activeClassName="activeClass">
+                <NavLink to="/users" activeClassName="activeClass">
                     <MDBListGroupItem>
-                        <MDBIcon icon="user" className="mr-3"/>
-                        Profile
+                        <MDBIcon icon="users" className="mr-3"/>
+                        Users
                     </MDBListGroupItem>
                 </NavLink>
-                <NavLink to="/tables" activeClassName="activeClass">
+                <NavLink to="/services" activeClassName="activeClass">
                     <MDBListGroupItem>
-                        <MDBIcon icon="table" className="mr-3"/>
-                        Tables
+                        <MDBIcon icon="list" className="mr-3"/>
+                        Services
                     </MDBListGroupItem>
                 </NavLink>
-                <NavLink to="/maps" activeClassName="activeClass">
+                <NavLink to="/subcategory" activeClassName="activeClass">
                     <MDBListGroupItem>
-                        <MDBIcon icon="map" className="mr-3"/>
-                        Maps
+                        <MDBIcon icon="list" className="mr-3"/>
+                        Subcategory
                     </MDBListGroupItem>
                 </NavLink>
-                <NavLink to="/404" activeClassName="activeClass">
+                <NavLink to="/settings" activeClassName="activeClass">
                     <MDBListGroupItem>
-                        <MDBIcon icon="exclamation" className="mr-3"/>
-                        404
+                        <MDBIcon icon="cog" className="mr-3"/>
+                        Settings
+                    </MDBListGroupItem>
+                </NavLink>
+                <NavLink to="/login" activeClassName="activeClass">
+                    <MDBListGroupItem>
+                        <MDBIcon icon="sign-in-alt" className="mr-3"/>
+                        Login
+                    </MDBListGroupItem>
+                </NavLink>
+                <NavLink to="/forgot-password" activeClassName="activeClass">
+                    <MDBListGroupItem>
+                        <MDBIcon icon="lock" className="mr-3"/>
+                        Forgot Password
                     </MDBListGroupItem>
                 </NavLink>
             </MDBListGroup>
