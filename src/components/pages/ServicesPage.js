@@ -9,16 +9,36 @@ const ServicesPage = () => {
   const data = () => ({
     columns: [
       {
-        label: 'Name',
-        field: 'name',
-        attributes: {
-          'aria-controls': 'DataTable',
-          'aria-label': 'Name'
-        }
+        label: 'Product Name',
+        field: 'product_name',
+      },
+      {
+        label: 'Service Type',
+        field: 'type',
       },
       {
         label: 'User',
         field: 'user',
+      },
+      {
+        label: 'Category',
+        field: 'category',
+      },
+      {
+        label: 'SubCategory',
+        field: 'subcategory',
+      },
+      {
+        label: 'Contact Number',
+        field: 'contact_number',
+      },
+      {
+        label: 'Pricing',
+        field: 'pricing',
+      },
+      {
+        label: 'Time',
+        field: 'time',
       },
       {
         label: 'Edit',
@@ -31,96 +51,119 @@ const ServicesPage = () => {
     ],
     rows: [
       {
-        name: <MDBLink className="text-primary p-0" to='/subcategory'>Service Name</MDBLink>,
-        user: 'Tiger Nixon',
+        product_name: 'Product abc',
+        type: 'Non-Commercial',
+        user: 'User 123',
+        category: 'Yacht Services',
+        subcategory: 'Dinghu Docks',
+        contact_number: '+12334324442',
+        pricing: '$10/hour',
+        time: '12:00 - 2:00',
         edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
         approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
         clickEvent: row => testClickEvent(row)
       },
       {
-        name: <MDBLink className="text-primary p-0" to='/subcategory'>Service Name</MDBLink>,
-        user: 'Garrett Winters',
+        product_name: 'Product abc',
+        type: 'Commercial',
+        user: 'User 123',
+        category: 'Yacht Services',
+        subcategory: 'Dinghu Docks',
+        contact_number: '+12334324442',
+        pricing: '$10/hour',
+        time: '12:00 - 2:00',
         edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
         approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
       },
       {
-        name: <MDBLink className="text-primary p-0" to='/subcategory'>Service Name</MDBLink>,
-        user: 'Ashton Cox',
+        product_name: 'Product abc',
+        type: 'Commercial',
+        user: 'User 123',
+        category: 'Yacht Services',
+        subcategory: 'Dinghu Docks',
+        contact_number: '+12334324442',
+        pricing: '$10/hour',
+        time: '12:00 - 2:00',
         edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
         approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
       },
       {
-        name: <MDBLink className="text-primary p-0" to='/subcategory'>Service Name</MDBLink>,
-        user: 'Cedric Kelly',
+        product_name: 'Product abc',
+        type: 'Non-Commercial',
+        user: 'User 123',
+        category: 'Yacht Services',
+        subcategory: 'Dinghu Docks',
+        contact_number: '+12334324442',
+        pricing: '$10/hour',
+        time: '12:00 - 2:00',
         edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
         approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
       },
       {
-        name: <MDBLink className="text-primary p-0" to='/subcategory'>Service Name</MDBLink>,
-        user: 'Airi Satou',
+        product_name: 'Product abc',
+        type: 'Non-Commercial',
+        user: 'User 123',
+        category: 'Yacht Services',
+        subcategory: 'Dinghu Docks',
+        contact_number: '+12334324442',
+        pricing: '$10/hour',
+        time: '12:00 - 2:00',
         edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
         approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
       },
       {
-        name: <MDBLink className="text-primary p-0" to='/subcategory'>Service Name</MDBLink>,
-        user: 'Brielle Williamson',
+        product_name: 'Product abc',
+        type: 'Non-Commercial',
+        user: 'User 123',
+        category: 'Yacht Services',
+        subcategory: 'Dinghu Docks',
+        contact_number: '+12334324442',
+        pricing: '$10/hour',
+        time: '12:00 - 2:00',
         edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
         approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
       },
       {
-        name: <MDBLink className="text-primary p-0" to='/subcategory'>Service Name</MDBLink>,
-        user: 'Herrod Chandler',
+        product_name: 'Product abc',
+        type: 'Non-Commercial',
+        user: 'User 123',
+        category: 'Yacht Services',
+        subcategory: 'Dinghu Docks',
+        contact_number: '+12334324442',
+        pricing: '$10/hour',
+        time: '12:00 - 2:00',
         edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
         approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
       },
       {
-        name: <MDBLink className="text-primary p-0" to='/subcategory'>Service Name</MDBLink>,
-        user: 'Rhona Davidson',
+        product_name: 'Product abc',
+        type: 'Non-Commerciall',
+        user: 'User 123',
+        category: 'Yacht Services',
+        subcategory: 'Dinghu Docks',
+        contact_number: '+12334324442',
+        pricing: '$10/hour',
+        time: '12:00 - 2:00',
         edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
         approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
       },
       {
-        name: <MDBLink className="text-primary p-0" to='/subcategory'>Service Name</MDBLink>,
-        user: 'Colleen Hurst',
+        product_name: 'Product abc',
+        type: 'Commercial',
+        user: 'User 123',
+        category: 'Yacht Services',
+        subcategory: 'Dinghu Docks',
+        contact_number: '+12334324442',
+        pricing: '$10/hour',
+        time: '12:00 - 2:00',
         edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
         approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
       },
-      {
-        name: <MDBLink className="text-primary p-0" to='/subcategory'>Service Name</MDBLink>,
-        user: 'Sonya Frost',
-        edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
-        approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
-      },
-      {
-        name: <MDBLink className="text-primary p-0" to='/subcategory'>Service Name</MDBLink>,
-        user: 'Jena Gaines',
-        edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
-        approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
-      }
     ]
   });
 
-  const badgesData = {
-    columns: [
-      {
-        label: 'ID',
-        field: 'badge'
-      },
-      ...data().columns
-    ],
-    rows: [
-      ...data().rows.map((row, order) => ({
-        ...row,
-        badge: (
-          <MDBBadge pill color='primary' className='p-1 px-2' key={order} searchvalue={order}>
-            ID: {order + 1}
-          </MDBBadge>
-        )
-      }))
-    ]
-  };
 
-  const widerData = {
+  const widerData = { 
     columns: [
       ...data().columns.map(col => {
         col.width = 200;
@@ -141,8 +184,8 @@ const ServicesPage = () => {
         <MDBCardBody>
           <MDBDataTable responsive
             bordered
-            entriesOptions={[5, 20, 25]}
-            entries={5}
+            entriesOptions={[10, 20, 25]}
+            entries={10}
             pagesAmount={4}
             data={data()}
             materialSearch

@@ -28,12 +28,6 @@ const TopNavigation = () => {
                         Services
                     </MDBListGroupItem>
                 </NavLink>
-                <NavLink to="/subcategory" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="list" className="mr-3"/>
-                        Subcategory
-                    </MDBListGroupItem>
-                </NavLink>
                 <NavLink to="/settings" activeClassName="activeClass">
                     <MDBListGroupItem>
                         <MDBIcon icon="cog" className="mr-3"/>

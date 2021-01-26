@@ -39,6 +39,11 @@ class TopNavigation extends Component {
                             </MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem>
+                            <MDBNavLink activeClassName="active" className="nav-link Ripple-parent" to="/services">
+                                <MDBIcon fas icon="list" className="mr-2"/>Services
+                            </MDBNavLink>
+                        </MDBNavItem>
+                        <MDBNavItem>
                             <MDBNavLink activeClassName="active" className="nav-link Ripple-parent" to="/settings">
                                 <MDBIcon fas icon="cog" className="mr-2"/>Settings
                             </MDBNavLink>

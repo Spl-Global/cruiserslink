@@ -234,10 +234,19 @@ main {
 	top: 0.45rem;
 }
 
-#content{
-  height: calc(100vh - 119px);
-}
-
 .nav-link.active{
   background-color: rgba(0,0,0,0.1);
+}
+
+select{
+  box-sizing: content-box;
+  background-color: transparent;
+  border: none !important;
+  border-bottom: 1px solid #ced4da !important;
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+  transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+  padding-left: 5px !important;
+  
 }

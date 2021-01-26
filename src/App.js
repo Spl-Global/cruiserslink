@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Routes from '../src/components/Routes';
 import TopNavigation from './components/topNavigation';
 import SideNavigation from './components/sideNavigation';
-import Footer from './components/Footer';
 import './index.css';
 
 class App extends Component {
@@ -15,7 +14,6 @@ class App extends Component {
           <main id="content" className="p-xl-5 p-lg-4 p-3">
             <Routes />
           </main>
-          <Footer />
         </div>
     );
   }
