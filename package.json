@@ -1,0 +1,31 @@
+{
+  "name": "cruiserslink",
+  "version": "1.0.0",
+  "description": "\"CruisersLINK Admin Panel Server\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Spl-Global/cruiserslink.git"
+  },
+  "keywords": [
+    "cruisers",
+    "link"
+  ],
+  "author": "System Plus Pvt. Limited",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Spl-Global/cruiserslink/issues"
+  },
+  "homepage": "https://github.com/Spl-Global/cruiserslink#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dot-env": "0.0.1",
+    "express": "^4.17.1",
+    "firebase-admin": "^9.4.2",
+    "nodemon": "^2.0.7"
+  }
+}
