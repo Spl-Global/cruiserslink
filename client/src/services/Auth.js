@@ -1,38 +1,55 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { auth } from './base'
-const AuthContext = React.createContext()
+import ClipLoader from 'react-spinners/ClipLoader'
+import { MDBCard, MDBContainer } from 'mdbreact'
 
+const AuthContext = React.createContext()
 export function useAuth() {
     return useContext(AuthContext)
 }
 export function AuthProvider({ children }) {
-    const [currentUser, setCurrentUser] = useState(null)
-    const [loading, setLoading] = useState(false)
+    const [currentUser, setCurrentUser] = useState()
+    const [loading, setLoading] = useState(true)
+
+    const login = function (email, password) {
+        return auth.signInWithEmailAndPassword(email, password)
+    }
+    const logout = function () {
+        return auth.signOut()
+    }
+    const resetPassword = function (email) {
+        return auth.sendPasswordResetEmail(email)
+    }
+    const updateEmail = function (newEmail) {
+        return currentUser.updateEmail(newEmail)
+    }
+    const updatePassword = function (newPassword) {
+        return currentUser.updatePassword(newPassword)
+    }
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
-            if (user) {
-                setCurrentUser(user)
-                setLoading(false)
-            } else {
-                setCurrentUser(user)
-                setLoading(false)
-            }
+            setCurrentUser(user);
+            setLoading(false)
         })
         return unsubscribe
     }, [])
-    const login = function () { }
-    const logout = function () { }
-    const resetPassword = function () { }
-    const updateEmail = function () { }
-    const updatePassword = function () { }
     const value = {
         currentUser, login, logout,
         resetPassword, updateEmail, updatePassword
     }
+    // console.log(value)
     return (
         <AuthContext.Provider value={value}>
-            {!loading && children}
+            {loading ?
+                <MDBContainer>
+                    <div
+                        style={{ height: 400 }}
+                        className='border d-flex align-items-center justify-content-center'>
+                        <ClipLoader color="#57A4FF" loading={loading} size={150} />
+                    </div>
+                </MDBContainer> :
+                children}
         </AuthContext.Provider>
     )
 

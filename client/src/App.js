@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import Routes from '../src/components/Routes';
 import TopNavigation from './components/topNavigation';
 import SideNavigation from './components/sideNavigation';
+import { AuthProvider } from './services/Auth'
 import './index.css';
-
-class App extends Component {
-
-  render() {
-    // console.log("Hello")
-    return (
+const App = () => {
+  return (
+    <AuthProvider>
       <div className="flexible-content">
         {/* <TopNavigation /> */}
         {/* <SideNavigation /> */}
@@ -16,8 +14,8 @@ class App extends Component {
           <Routes />
         </main>
       </div>
-    );
-  }
+    </AuthProvider>
+  );
 }
 
 export default App;
