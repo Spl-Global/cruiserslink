@@ -7,45 +7,51 @@ const TopNavigation = () => {
     return (
         <div className="sidebar-fixed position-fixed">
             <a href="/" className="logo-wrapper waves-effect">
-                <img alt="CruisersLink Logo" className="img-fluid" src={logo}/>
+                <img alt="CruisersLink Logo" className="img-fluid" src={logo} />
             </a>
             <MDBListGroup className="list-group-flush">
                 <NavLink exact={true} to="/" activeClassName="activeClass">
                     <MDBListGroupItem>
-                        <MDBIcon icon="tachometer-alt" className="mr-3"/>
+                        <MDBIcon icon="tachometer-alt" className="mr-3" />
                         Dashboard
                     </MDBListGroupItem>
                 </NavLink>
                 <NavLink to="/users" activeClassName="activeClass">
                     <MDBListGroupItem>
-                        <MDBIcon icon="users" className="mr-3"/>
+                        <MDBIcon icon="users" className="mr-3" />
                         Users
                     </MDBListGroupItem>
                 </NavLink>
                 <NavLink to="/services" activeClassName="activeClass">
                     <MDBListGroupItem>
-                        <MDBIcon icon="list" className="mr-3"/>
+                        <MDBIcon icon="list" className="mr-3" />
                         Services
                     </MDBListGroupItem>
                 </NavLink>
+                <NavLink to="/tipsandtricks" activeClassName="activeClass">
+                    <MDBListGroupItem>
+                        <MDBIcon icon="lightbulb" className="mr-3" />
+                        Tips And Tricks
+                    </MDBListGroupItem>
+                </NavLink>
+                <NavLink to="/ratingsandcomments" activeClassName="activeClass">
+                    <MDBListGroupItem>
+                        <MDBIcon icon="star" className="mr-3" />
+                        Ratings
+                        </MDBListGroupItem>
+                </NavLink>
                 <NavLink to="/settings" activeClassName="activeClass">
                     <MDBListGroupItem>
-                        <MDBIcon icon="cog" className="mr-3"/>
+                        <MDBIcon icon="cog" className="mr-3" />
                         Settings
                     </MDBListGroupItem>
                 </NavLink>
-                <NavLink to="/login" activeClassName="activeClass">
+                {/* <NavLink to="" activeClassName="activeClass">
                     <MDBListGroupItem>
-                        <MDBIcon icon="sign-in-alt" className="mr-3"/>
-                        Login
+                        <MDBIcon icon="sign-out-alt" className="mr-3" />
+                        Log Out
                     </MDBListGroupItem>
-                </NavLink>
-                <NavLink to="/forgot-password" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="lock" className="mr-3"/>
-                        Forgot Password
-                    </MDBListGroupItem>
-                </NavLink>
+                </NavLink> */}
             </MDBListGroup>
         </div>
     );

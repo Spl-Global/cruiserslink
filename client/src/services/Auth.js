@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import {auth} from './base'
+import { auth } from './base'
 const AuthContext = React.createContext()
 
 export function useAuth() {
@@ -11,8 +11,13 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
-            setCurrentUser(user)
-            setLoading(false)
+            if (user) {
+                setCurrentUser(user)
+                setLoading(false)
+            } else {
+                setCurrentUser(user)
+                setLoading(false)
+            }
         })
         return unsubscribe
     }, [])

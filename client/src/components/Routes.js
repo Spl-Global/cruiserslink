@@ -10,6 +10,8 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import EmptyPage from './pages/EmptyPage';
 import { AuthProvider } from '../services/Auth'
 import PrivateRoute from './PrivateRoute';
+import TipsAndTricksPage from './pages/TipsAndTricksPage';
+import RatingsAndCommentsPage from './pages/RatingsAndCommentsPage';
 class Routes extends React.Component {
   render() {
     return (
@@ -21,6 +23,8 @@ class Routes extends React.Component {
           <PrivateRoute path='/users' component={UsersPage} />
           <PrivateRoute path='/services' component={ServicesPage} />
           <PrivateRoute path='/edit_service' component={EditServicePage} />
+          <PrivateRoute path='/tipsandtricks' component={TipsAndTricksPage} />
+          <PrivateRoute path='/ratingsandcomments' component={RatingsAndCommentsPage} />
           <Route path='/login' component={LoginPage} />
           <Route path='/forgot-password' component={ForgotPasswordPage} />
           <Route path="*" component={EmptyPage} />
