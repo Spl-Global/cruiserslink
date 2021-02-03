@@ -5,16 +5,17 @@ import SideNavigation from './components/sideNavigation';
 import './index.css';
 
 class App extends Component {
-  
+
   render() {
+    // console.log("Hello")
     return (
-        <div className="flexible-content">
-          <TopNavigation />
-          <SideNavigation />
-          <main id="content" className="p-xl-5 p-lg-4 p-3">
-            <Routes />
-          </main>
-        </div>
+      <div className="flexible-content">
+        {/* <TopNavigation /> */}
+        {/* <SideNavigation /> */}
+        <main id="content" className="p-xl-5 p-lg-4 p-3">
+          <Routes />
+        </main>
+      </div>
     );
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge, MDBLink } from 'mdbreact';
-
+import TopNavigation from '../topNavigation'
+import SideNavigation from '../sideNavigation'
 const ServicesPage = () => {
   function testClickEvent(param) {
     console.log(param);
@@ -163,7 +164,7 @@ const ServicesPage = () => {
   });
 
 
-  const widerData = { 
+  const widerData = {
     columns: [
       ...data().columns.map(col => {
         col.width = 200;
@@ -175,10 +176,12 @@ const ServicesPage = () => {
 
   return (
     <React.Fragment>
+      <TopNavigation />
+      <SideNavigation />
       <MDBCard className="mb-5">
-          <MDBCardBody id="breadcrumb" className="d-flex align-items-center justify-content-between">
-            <h2 className="mb-0">Services</h2>
-          </MDBCardBody>
+        <MDBCardBody id="breadcrumb" className="d-flex align-items-center justify-content-between">
+          <h2 className="mb-0">Services</h2>
+        </MDBCardBody>
       </MDBCard>
       <MDBCard>
         <MDBCardBody>

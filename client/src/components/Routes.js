@@ -7,20 +7,29 @@ import ServicesPage from './pages/ServicesPage';
 import EditServicePage from './pages/EditServicePage';
 import LoginPage from './pages/LoginPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
-
+import EmptyPage from './pages/EmptyPage';
+import { AuthProvider } from '../services/Auth'
+import PrivateRoute from './PrivateRoute';
+import TipsAndTricksPage from './pages/TipsAndTricksPage';
+import RatingsAndCommentsPage from './pages/RatingsAndCommentsPage';
 class Routes extends React.Component {
   render() {
     return (
-      <Switch>
-        <Route path='/' exact component={DashboardPage} />
-        <Route path='/dashboard' component={DashboardPage} />
-        <Route path='/settings' component={SettingsPage} />
-        <Route path='/users' component={UsersPage} />
-        <Route path='/services' component={ServicesPage} />
-        <Route path='/edit_service' component={EditServicePage} />
-        <Route path='/login' component={LoginPage} />
-        <Route path='/forgot-password' component={ForgotPasswordPage} />
-      </Switch>
+      <AuthProvider>
+        <Switch>
+          <PrivateRoute exact path='/' component={DashboardPage} />
+          <PrivateRoute path='/dashboard' component={DashboardPage} />
+          <PrivateRoute path='/settings' component={SettingsPage} />
+          <PrivateRoute path='/users' component={UsersPage} />
+          <PrivateRoute path='/services' component={ServicesPage} />
+          <PrivateRoute path='/edit_service' component={EditServicePage} />
+          <PrivateRoute path='/tipsandtricks' component={TipsAndTricksPage} />
+          <PrivateRoute path='/ratingsandcomments' component={RatingsAndCommentsPage} />
+          <Route path='/login' component={LoginPage} />
+          <Route path='/forgot-password' component={ForgotPasswordPage} />
+          <Route path="*" component={EmptyPage} />
+        </Switch>
+      </AuthProvider>
     );
   }
 }
