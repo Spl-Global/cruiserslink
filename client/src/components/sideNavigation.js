@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from "../assets/cruiserslink.png";
-import { MDBListGroup, MDBListGroupItem, MDBIcon } from 'mdbreact';
-import { NavLink } from 'react-router-dom';
-
+import { MDBListGroup, MDBListGroupItem, MDBIcon, MDBNavLink, MDBBtn, MDBNavItem, MDBContainer } from 'mdbreact';
+import { NavLink, useHistory } from 'react-router-dom';
+import { useAuth } from '../services/Auth'
+import ClipLoader from 'react-spinners/ClipLoader'
 const TopNavigation = () => {
+    const { currentUser, logout } = useAuth()
+    const { loading, setLoading } = useState(false)
+    const history = useHistory()
+
+    const handleLogOut = async function () {
+        try {
+            setLoading(true);
+            await logout()
+            history.push('/login')
+        } catch (err) {
+
+        }
+    }
     return (
         <div className="sidebar-fixed position-fixed">
             <a href="/" className="logo-wrapper waves-effect">
                 <img alt="CruisersLink Logo" className="img-fluid" src={logo} />
             </a>
+
             <MDBListGroup className="list-group-flush">
                 <NavLink exact={true} to="/" activeClassName="activeClass">
                     <MDBListGroupItem>
@@ -46,14 +61,21 @@ const TopNavigation = () => {
                         Settings
                     </MDBListGroupItem>
                 </NavLink>
-                {/* <NavLink to="" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="sign-out-alt" className="mr-3" />
-                        Log Out
-                    </MDBListGroupItem>
-                </NavLink> */}
+                {/* <NavLink href="#" activeClassName="activeClass"> */}
+                {/* <MDBNavItem>
+                    {loading ?
+                        <MDBListGroupItem className="mr-3">
+                            <ClipLoader size={30} color="#57A4FF" />
+                        </MDBListGroupItem> :
+                        <MDBListGroupItem>
+                            <MDBIcon icon="sign-out-alt" className="mr-3" />
+                            <a onClick href="#"> Log Out</a>
+                        </MDBListGroupItem>
+                    }
+                </MDBNavItem> */}
+                {/* </NavLink> */}
             </MDBListGroup>
-        </div>
+        </div >
     );
 }
 
