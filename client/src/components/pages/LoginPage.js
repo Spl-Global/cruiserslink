@@ -16,9 +16,22 @@ const LoginPage = () => {
       event.preventDefault();
       setError(null); setLoading(true);
       if (email && password) {
-        await login(email, password)
-        setLoading(false); setError(null);
-        history.push('/')
+        const cred = await login(email, password)
+        cred.user.getIdTokenResult()
+          .then(idTokenResult => {
+            if (!!idTokenResult.claims.admin) {
+              setLoading(false); setError(null);
+              history.push('/')
+            } else {
+              setLoading(false);
+              setError('Entered User is not An Admin.');
+            }
+          }).catch(err => {
+            setLoading(false);
+            setError(err.message);
+          })
+        // setLoading(false); setError(null);
+        // history.push('/')
       } else {
         setLoading(false); setError('Please Add A Valid Email or Password')
       }

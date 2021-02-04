@@ -29,8 +29,24 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
-            setCurrentUser(user);
-            setLoading(false)
+            if (user) {
+                user.getIdTokenResult()
+                    .then(idTokenResult => {
+                        if (!!idTokenResult.claims.admin) {
+                            setCurrentUser({ ...user, admin: idTokenResult.claims.admin });
+                            setLoading(false)
+                        } else {
+                            setCurrentUser(null);
+                            setLoading(false)
+                        }
+                    }).catch(err => {
+                        setCurrentUser(null);
+                        setLoading(false)
+                    })
+            } else {
+                setCurrentUser(user);
+                setLoading(false)
+            }
         })
         return unsubscribe
     }, [])
