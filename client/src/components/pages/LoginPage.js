@@ -30,8 +30,6 @@ const LoginPage = () => {
             setLoading(false);
             setError(err.message);
           })
-        // setLoading(false); setError(null);
-        // history.push('/')
       } else {
         setLoading(false); setError('Please Add A Valid Email or Password')
       }

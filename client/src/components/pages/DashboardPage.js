@@ -41,7 +41,7 @@ const DashboardPage = () => {
               <div className="float-right">
                 <MDBIcon icon="list" className="fa-2x" />
               </div>
-              <h5 className="white-text">Categories</h5>
+              <h5 className="white-text">Tips And Tricks</h5>
               <h3><strong>20000</strong></h3>
             </MDBCardBody>
           </MDBCard>
@@ -52,7 +52,7 @@ const DashboardPage = () => {
               <div className="float-right">
                 <MDBIcon icon="list" className="fa-2x" />
               </div>
-              <h5 className="white-text">Sub Categories</h5>
+              <h5 className="white-text">Ratings</h5>
               <h3><strong>2000</strong></h3>
             </MDBCardBody>
           </MDBCard>

@@ -2,6 +2,8 @@ import React from 'react';
 import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge } from 'mdbreact';
 import TopNavigation from '../topNavigation'
 import SideNavigation from '../sideNavigation'
+import { SetUsers } from '../../Redux/actions/actions';
+import { connect } from 'react-redux';
 const UsersPage = () => {
   function testClickEvent(param) {
     console.log(param);
@@ -156,5 +158,14 @@ const UsersPage = () => {
 
   );
 };
-
-export default UsersPage;
+const mapStateToProps = state => {
+  return {
+    users: state.usersReducer.users
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    setUsers: function (users) { dispatch(SetUsers(users)) }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(UsersPage);

@@ -7,8 +7,8 @@ app.use(require("body-parser").text());
 app.use(require('body-parser').urlencoded({ extended: false }));
 app.use(require('body-parser').json());
 // Loads the FirebaseAdmin Client from the credentials
-require('./server/services/FirebaseAdminService')
-require('./server/util/makeAdmin')
+// require('./server/services/FirebaseAdminService')
+// require('./server/util/makeAdmin')
 // require('./Server/Services/FirebaseAdminService')
 
 // require('./Server/Routes/getUserData')(app)
