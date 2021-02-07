@@ -4,7 +4,7 @@ import TopNavigation from '../topNavigation'
 import SideNavigation from '../sideNavigation'
 const RatingsAndCommentsPage = () => {
     function testClickEvent(param) {
-        console.log(param);
+        // console.log(param);
     }
     const [data, setData] = useState({ columns: [], rows: [] })
 
