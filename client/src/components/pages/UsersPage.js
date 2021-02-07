@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge, MDBAlert } from 'mdbreact';
+import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge, MDBAlert, MDBLink } from 'mdbreact';
 import TopNavigation from '../topNavigation'
 import SideNavigation from '../sideNavigation'
 import { SetUsers } from '../../Redux/actions/actions';
@@ -23,10 +23,7 @@ const UsersPage = ({ users, setUsers }) => {
           fullName: value.fullName,
           userType: value.userType,
           email: value.email,
-          edit: <a href={`/edit_users/${value.id}`} onClick={e => {
-            e.preventDefault();
-            history.push(`/edit_users/${value.id}`)
-          }} className="text-primary">Edit</a>,
+          edit: <MDBLink className="text-primary p-0" to={`/edit_users/${value.id}`}>Edit</MDBLink>,
           enable_disable: <a href="#" className="text-primary">Disable</a>,
           clickEvent: row => testClickEvent(row),
         }
