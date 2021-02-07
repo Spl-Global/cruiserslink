@@ -27,6 +27,7 @@ const EditUserPage = (props) => {
     }, [id])
 
     const handleChangeData = function (type, key, value) {
+        // console.log(type, key, value)
         if (type === "cruiser") {
             setUserData({
                 ...userData,

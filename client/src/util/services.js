@@ -57,13 +57,11 @@ export const CategoriesToName = {
     1: "Yacht Services",
     2: "Marinas Anchorages and Boatyards",
     3: "Food & Drinks",
-    4: "Tips & Tricks",
     5: "Telecom",
     6: "Health",
     7: "Pets",
     7: "Government & Customs",
     9: "Miscellaneous",
-    10: "Messaging",
 }
 export const SubCategoriesToName = {
     101: "Chandleries",
