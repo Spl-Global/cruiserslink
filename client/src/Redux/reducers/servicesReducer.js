@@ -6,7 +6,7 @@ const initialState = {
 export const servicesReducer = function (state = initialState, action) {
     switch (action.type) {
         case SET_SERVICES:
-            return Object.assign({}, state, { users: action.payload.services })
+            return Object.assign({}, state, { services: action.payload.services })
         case RESET_SERVICES:
             return Object.assign({}, state, initialState)
         default:

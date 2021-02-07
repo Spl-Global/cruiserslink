@@ -13,6 +13,7 @@ import PrivateRoute from './PrivateRoute';
 import TipsAndTricksPage from './pages/TipsAndTricksPage';
 import RatingsAndCommentsPage from './pages/RatingsAndCommentsPage';
 import { useAuth } from '../services/Auth';
+import OpenRoute from './OpenRoute';
 const Routes = () => {
   // const { currentUser } = useAuth()
   // const history = useHistory()
@@ -26,8 +27,8 @@ const Routes = () => {
   return (
     // <AuthProvider>
     <Switch>
-      <Route exact path='/login' component={LoginPage} />
-      <Route path='/forgot-password' component={ForgotPasswordPage} />
+      <OpenRoute exact path='/login' component={LoginPage} />
+      <OpenRoute path='/forgot-password' component={ForgotPasswordPage} />
       <PrivateRoute exact path='/' component={DashboardPage} />
       {/* <PrivateRoute path='/dashboard' component={DashboardPage} /> */}
       <PrivateRoute path='/settings' component={SettingsPage} />

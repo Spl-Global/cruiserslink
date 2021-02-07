@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge } from 'mdbreact';
+import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge, MDBAlert } from 'mdbreact';
 import TopNavigation from '../topNavigation'
 import SideNavigation from '../sideNavigation'
 import { SetUsers } from '../../Redux/actions/actions';
 import { connect } from 'react-redux';
 import { firestore } from '../../services/base'
 import { userColumns } from '../../util/users'
-const UsersPage = () => {
+const UsersPage = ({ users, setUsers }) => {
+  const limit = 25;
   function testClickEvent(param) {
     console.log(param);
   }
-  const [data, setData] = useState({ columns: [], rows: [] })
+  const [data, setData] = useState({ columns: userColumns, rows: [] })
+  const [error, setError] = useState('')
   useEffect(() => {
-    const unsubscribe = firestore.collection('Users').onSnapshot(querySnap => {
-      let rows = []
-      querySnap.forEach((x, i) => {
-        const value = x.data()
-        // console.log(value)
-        const datatoAdd = {
+    setData({
+      columns: data.columns,
+      rows: users.map(value => {
+        return {
           fullName: value.fullName,
           userType: value.userType,
           email: value.email,
@@ -25,15 +25,51 @@ const UsersPage = () => {
           enable_disable: <a href="#" className="text-primary">Disable</a>,
           clickEvent: row => testClickEvent(row),
         }
-        rows = [...rows, datatoAdd]
-      })
-      // console.log(userColumns, rows)
-      setData({
-        columns: userColumns,
-        rows,
       })
     })
-    return unsubscribe
+  }, [users])
+
+  const fetchUsers = function () {
+    if (users.length > 0) {
+      const lastUser = users[users.length - 1]
+      firestore
+        .collection('Users')
+        .orderBy('__name__', 'asc')
+        .limit(limit)
+        .startAfter(lastUser.id)
+        .get()
+        .then(querySnap => {
+          setUsers([
+            ...users,
+            ...querySnap.docs.map(doc => {
+              return {
+                id: doc.id,
+                ...doc.data()
+              }
+            })
+          ])
+        }).catch(err => {
+          setError(err.message)
+        })
+    } else {
+      firestore
+        .collection('Users')
+        .limit(limit)
+        .get()
+        .then(querySnap => {
+          setUsers(querySnap.docs.map(doc => {
+            return {
+              id: doc.id,
+              ...doc.data()
+            }
+          }))
+        }).catch(err => {
+          setError(err.message)
+        })
+    }
+  }
+  useEffect(() => {
+    fetchUsers()
   }, [])
   return (
     <React.Fragment>
@@ -43,6 +79,7 @@ const UsersPage = () => {
         <MDBCardBody id="breadcrumb" className="d-flex align-items-center justify-content-between">
           <h2 className="mb-0">Users</h2>
         </MDBCardBody>
+        {error && <MDBAlert color="danger">{error}</MDBAlert>}
       </MDBCard>
       <MDBCard>
         <MDBCardBody>

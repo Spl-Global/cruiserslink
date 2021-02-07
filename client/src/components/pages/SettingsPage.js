@@ -1,9 +1,51 @@
-import React from 'react'
-import { MDBInput, MDBCol, MDBRow, MDBBtn, MDBContainer, } from 'mdbreact';
+import React, { useState } from 'react'
+import { MDBInput, MDBCol, MDBRow, MDBBtn, MDBContainer, MDBAlert, } from 'mdbreact';
 import TopNavigation from '../topNavigation'
 import SideNavigation from '../sideNavigation'
+import { useAuth } from '../../services/Auth';
+import app, { auth } from '../../services/base';
 
 const SettingsPage = () => {
+  const { currentUser } = useAuth()
+  const [email, setEmail] = useState(null)
+  const [currentPassword, setCurrentPassword] = useState(null)
+  const [newPassword, setNewPassword] = useState(null)
+  const [confirmNewPassword, setConfirmNewPassword] = useState(null)
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const reauthenticate = (pass) => {
+    const user = app.auth().currentUser;
+    const cred = firebase.default.auth.EmailAuthProvider.credential(email, pass);
+    return user.reauthenticateWithCredential(cred);
+  }
+  const handleChangePassword = function (event) {
+
+    event.preventDefault()
+    if (email && currentPassword && newPassword && confirmNewPassword) {
+      if (newPassword === confirmNewPassword) {
+        setError(null); setLoading(true);
+        reauthenticate(currentPassword).then(() => {
+          const user = firebase.default.auth().currentUser;
+          user.updatePassword(newPassword).then(() => {
+            setError(null); setLoading(false);
+            setEmail(null); setNewPassword(null); setConfirmNewPassword(null); setCurrentPassword(null);
+          })
+            .catch((error) => {
+              setError(err.message); setLoading(false);
+            });
+        })
+          .catch((error) => {
+            setError(err.message); setLoading(false);
+          });
+      } else {
+        setError('Passwords Do Not Match')
+        setLoading(false);
+      }
+    } else {
+      setError('Please Add Valid Credentials')
+      setLoading(false);
+    }
+  }
   return (
     <React.Fragment>
       <TopNavigation />
@@ -16,34 +58,60 @@ const SettingsPage = () => {
             className='text-left mx-auto float-none white z-depth-1 p-4 p-lg-5'
           >
             <h2 className='text-center'>Settings</h2>
+            {error && <MDBAlert color="danger">
+              {error}
+            </MDBAlert>}
+            {loading &&
+              <div className='my-5 d-flex justify-content-around'>
+                <div className='spinner-border text-primary' role='status'>
+                  <span className='sr-only'>Loading...</span>
+                </div>
+              </div>
+            }
             <form className="mt-4">
               <MDBInput
                 label='Enter Your Email'
                 group
                 type='email'
                 icon='envelope'
+                onChange={e => {
+                  setEmail(e.target.value);
+                  setError(null);
+                }}
               />
               <MDBInput
                 label='Enter Your New Password'
                 group
                 type='password'
                 icon='lock'
+                onChange={e => {
+                  setNewPassword(e.target.value);
+                  setError(null);
+                }}
               />
               <MDBInput
                 label='Confirm Your New Password'
                 group
                 type='password'
                 icon='lock'
+                onChange={e => {
+                  setConfirmNewPassword(e.target.value);
+                  setError(null);
+                }}
               />
               <MDBInput
                 label='Enter Your Current Password'
                 group
                 type='password'
                 icon='lock'
+                onChange={e => {
+                  setCurrentPassword(e.target.value);
+                  setError(null);
+                }}
               />
-              <MDBBtn color='mdb-color' className='text-xs-left'>
+              <MDBBtn onClick={handleChangePassword} color='mdb-color' className='text-xs-left'>
                 Update
-                  </MDBBtn>
+              </MDBBtn>
             </form>
           </MDBCol>
         </MDBRow>

@@ -1,179 +1,84 @@
-import React from 'react';
-import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge, MDBLink } from 'mdbreact';
+import React, { useEffect, useState } from 'react';
+import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge, MDBLink, MDBAlert } from 'mdbreact';
 import TopNavigation from '../topNavigation'
 import SideNavigation from '../sideNavigation'
-const ServicesPage = () => {
+import { ServicesColumns, CategoriesToName, SubCategoriesToName } from '../../util/services';
+import { SetServices } from '../../Redux/actions/actions';
+import { connect } from 'react-redux';
+import { firestore } from '../../services/base';
+const ServicesPage = (props) => {
+  const limit = 25;
   function testClickEvent(param) {
     console.log(param);
   }
-
-  const data = () => ({
-    columns: [
-      {
-        label: 'Product Name',
-        field: 'product_name',
-      },
-      {
-        label: 'Service Type',
-        field: 'type',
-      },
-      {
-        label: 'User',
-        field: 'user',
-      },
-      {
-        label: 'Category',
-        field: 'category',
-      },
-      {
-        label: 'SubCategory',
-        field: 'subcategory',
-      },
-      {
-        label: 'Contact Number',
-        field: 'contact_number',
-      },
-      {
-        label: 'Pricing',
-        field: 'pricing',
-      },
-      {
-        label: 'Time',
-        field: 'time',
-      },
-      {
-        label: 'Edit',
-        field: 'edit',
-      },
-      {
-        label: 'Approve/Reject',
-        field: 'approve_reject',
-      },
-    ],
-    rows: [
-      {
-        product_name: 'Product abc',
-        type: 'Non-Commercial',
-        user: 'User 123',
-        category: 'Yacht Services',
-        subcategory: 'Dinghu Docks',
-        contact_number: '+12334324442',
-        pricing: '$10/hour',
-        time: '12:00 - 2:00',
-        edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
-        approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
-        clickEvent: row => testClickEvent(row)
-      },
-      {
-        product_name: 'Product abc',
-        type: 'Commercial',
-        user: 'User 123',
-        category: 'Yacht Services',
-        subcategory: 'Dinghu Docks',
-        contact_number: '+12334324442',
-        pricing: '$10/hour',
-        time: '12:00 - 2:00',
-        edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
-        approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
-      },
-      {
-        product_name: 'Product abc',
-        type: 'Commercial',
-        user: 'User 123',
-        category: 'Yacht Services',
-        subcategory: 'Dinghu Docks',
-        contact_number: '+12334324442',
-        pricing: '$10/hour',
-        time: '12:00 - 2:00',
-        edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
-        approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
-      },
-      {
-        product_name: 'Product abc',
-        type: 'Non-Commercial',
-        user: 'User 123',
-        category: 'Yacht Services',
-        subcategory: 'Dinghu Docks',
-        contact_number: '+12334324442',
-        pricing: '$10/hour',
-        time: '12:00 - 2:00',
-        edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
-        approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
-      },
-      {
-        product_name: 'Product abc',
-        type: 'Non-Commercial',
-        user: 'User 123',
-        category: 'Yacht Services',
-        subcategory: 'Dinghu Docks',
-        contact_number: '+12334324442',
-        pricing: '$10/hour',
-        time: '12:00 - 2:00',
-        edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
-        approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
-      },
-      {
-        product_name: 'Product abc',
-        type: 'Non-Commercial',
-        user: 'User 123',
-        category: 'Yacht Services',
-        subcategory: 'Dinghu Docks',
-        contact_number: '+12334324442',
-        pricing: '$10/hour',
-        time: '12:00 - 2:00',
-        edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
-        approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
-      },
-      {
-        product_name: 'Product abc',
-        type: 'Non-Commercial',
-        user: 'User 123',
-        category: 'Yacht Services',
-        subcategory: 'Dinghu Docks',
-        contact_number: '+12334324442',
-        pricing: '$10/hour',
-        time: '12:00 - 2:00',
-        edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
-        approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
-      },
-      {
-        product_name: 'Product abc',
-        type: 'Non-Commerciall',
-        user: 'User 123',
-        category: 'Yacht Services',
-        subcategory: 'Dinghu Docks',
-        contact_number: '+12334324442',
-        pricing: '$10/hour',
-        time: '12:00 - 2:00',
-        edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
-        approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
-      },
-      {
-        product_name: 'Product abc',
-        type: 'Commercial',
-        user: 'User 123',
-        category: 'Yacht Services',
-        subcategory: 'Dinghu Docks',
-        contact_number: '+12334324442',
-        pricing: '$10/hour',
-        time: '12:00 - 2:00',
-        edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
-        approve_reject: <MDBLink className="text-primary p-0" to='#'>Approve</MDBLink>,
-      },
-    ]
-  });
-
-
-  const widerData = {
-    columns: [
-      ...data().columns.map(col => {
-        col.width = 200;
-        return col;
+  const { services, setServices } = props
+  const [data, setData] = useState({ columns: ServicesColumns, rows: [] })
+  const [error, setError] = useState('')
+  useEffect(() => {
+    setData({
+      columns: data.columns,
+      rows: services.map(value => {
+        return {
+          ProductName: value.ProductName,
+          ServiceType: value.ServiceType,
+          Category: CategoriesToName[value.Category],
+          SubCategory: SubCategoriesToName[value.SubCategory],
+          ProductImagesCount: value.ProductImagesCount,
+          ProductDescription: value.ProductDescription,
+          Pricing: value.Pricing,
+          ContactNumber: value.ContactNumber,
+          avgRating: value.avgRating,
+          numRating: value.numRating,
+          time: `${value.StartTime}:00 - ${value.EndTime <= 23 ? value.EndTime : 0}:00`,
+          ServiceStatus: <MDBLink className="text-primary p-0" to='#'>{value.ServiceStatus}</MDBLink>,
+          edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
+          clickEvent: row => testClickEvent(row)
+        }
       })
-    ],
-    rows: [...data().rows]
-  };
-
+    })
+  }, [services])
+  const fetchServices = function () {
+    if (services.length > 0) {
+      const lastService = services[services.length - 1]
+      firestore
+        .collection('Services')
+        .orderBy('__name__', 'asc')
+        .limit(limit)
+        .startAfter(lastService.id)
+        .get()
+        .then(querySnap => {
+          setServices([
+            ...services,
+            ...querySnap.docs.map(doc => {
+              return {
+                id: doc.id,
+                ...doc.data()
+              }
+            })
+          ])
+        }).catch(err => {
+          setError(err.message)
+        })
+    } else {
+      firestore
+        .collection('Services')
+        .limit(limit)
+        .get()
+        .then(querySnap => {
+          setServices(querySnap.docs.map(doc => {
+            return {
+              id: doc.id,
+              ...doc.data()
+            }
+          }))
+        }).catch(err => {
+          setError(err.message)
+        })
+    }
+  }
+  useEffect(() => {
+    fetchServices()
+  }, [])
   return (
     <React.Fragment>
       <TopNavigation />
@@ -182,6 +87,7 @@ const ServicesPage = () => {
         <MDBCardBody id="breadcrumb" className="d-flex align-items-center justify-content-between">
           <h2 className="mb-0">Services</h2>
         </MDBCardBody>
+        {error && <MDBAlert color="danger">{error}</MDBAlert>}
       </MDBCard>
       <MDBCard>
         <MDBCardBody>
@@ -190,7 +96,7 @@ const ServicesPage = () => {
             entriesOptions={[10, 20, 25]}
             entries={10}
             pagesAmount={4}
-            data={data()}
+            data={data}
             materialSearch
           />
         </MDBCardBody>
@@ -199,5 +105,16 @@ const ServicesPage = () => {
 
   );
 };
-
-export default ServicesPage;
+const mapStateToProps = state => {
+  return {
+    services: state.servicesReducer.services
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    setServices: function (services) {
+      dispatch(SetServices(services))
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ServicesPage);
