@@ -92,7 +92,8 @@ const EditServicePage = (props) => {
                   </div>
                   <div className="md-form form-group">
                     <select onChange={e => {
-                      handleChangeData("Category", JSON.parse(e.target.value))
+                      handleChangeData("Category", JSON.parse(e.target.value));
+                      handleChangeData("SubCategory", JSON.parse(e.target.value * 100 + 1))
                     }} className="form-control custom-select">
                       {!Category ?
                         <option value={Category}>Category</option> : null
