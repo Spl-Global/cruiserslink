@@ -3,8 +3,10 @@ import { MDBInput, MDBCol, MDBRow, MDBBtn, MDBContainer } from 'mdbreact';
 import GoogleMapReact from 'google-map-react';
 import TopNavigation from '../topNavigation'
 import SideNavigation from '../sideNavigation'
+import { useParams } from 'react-router-dom';
 const EditServicePage = () => {
-
+  const { id } = useParams()
+  console.log(id)
   return (
     <React.Fragment>
       <TopNavigation />

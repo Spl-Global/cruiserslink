@@ -14,6 +14,8 @@ import TipsAndTricksPage from './pages/TipsAndTricksPage';
 import RatingsAndCommentsPage from './pages/RatingsAndCommentsPage';
 import { useAuth } from '../services/Auth';
 import OpenRoute from './OpenRoute';
+import EditUserPage from './pages/EditUserPage';
+import EditTipAndTrick from './pages/EditTipAndTrickPage';
 const Routes = () => {
   // const { currentUser } = useAuth()
   // const history = useHistory()
@@ -34,9 +36,12 @@ const Routes = () => {
       <PrivateRoute path='/settings' component={SettingsPage} />
       <PrivateRoute path='/users' component={UsersPage} />
       <PrivateRoute path='/services' component={ServicesPage} />
-      <PrivateRoute path='/edit_service' component={EditServicePage} />
       <PrivateRoute path='/tipsandtricks' component={TipsAndTricksPage} />
       <PrivateRoute path='/ratingsandcomments' component={RatingsAndCommentsPage} />
+
+      <PrivateRoute path='/edit_service/:id' component={EditServicePage} />
+      <PrivateRoute path='/edit_users/:id' component={EditUserPage} />
+      <PrivateRoute path='/edit_tipandtrick/:id' component={EditTipAndTrick} />
       <Route path="*" component={EmptyPage} />
     </Switch>
     // </AuthProvider>

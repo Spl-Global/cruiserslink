@@ -6,6 +6,7 @@ import { SetUsers } from '../../Redux/actions/actions';
 import { connect } from 'react-redux';
 import { firestore } from '../../services/base'
 import { userColumns } from '../../util/users'
+import { useHistory } from 'react-router-dom';
 const UsersPage = ({ users, setUsers }) => {
   const limit = 25;
   function testClickEvent(param) {
@@ -13,6 +14,7 @@ const UsersPage = ({ users, setUsers }) => {
   }
   const [data, setData] = useState({ columns: userColumns, rows: [] })
   const [error, setError] = useState('')
+  const history = useHistory()
   useEffect(() => {
     setData({
       columns: data.columns,
@@ -21,7 +23,10 @@ const UsersPage = ({ users, setUsers }) => {
           fullName: value.fullName,
           userType: value.userType,
           email: value.email,
-          edit: <a href="#" className="text-primary">Edit</a>,
+          edit: <a href={`/edit_users/${value.id}`} onClick={e => {
+            e.preventDefault();
+            history.push(`/edit_users/${value.id}`)
+          }} className="text-primary">Edit</a>,
           enable_disable: <a href="#" className="text-primary">Disable</a>,
           clickEvent: row => testClickEvent(row),
         }

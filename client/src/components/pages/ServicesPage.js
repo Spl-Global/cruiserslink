@@ -9,7 +9,7 @@ import { firestore } from '../../services/base';
 const ServicesPage = (props) => {
   const limit = 25;
   function testClickEvent(param) {
-    console.log(param);
+    // console.log(param);
   }
   const { services, setServices } = props
   const [data, setData] = useState({ columns: ServicesColumns, rows: [] })
@@ -31,7 +31,7 @@ const ServicesPage = (props) => {
           numRating: value.numRating,
           time: `${value.StartTime}:00 - ${value.EndTime <= 23 ? value.EndTime : 0}:00`,
           ServiceStatus: <MDBLink className="text-primary p-0" to='#'>{value.ServiceStatus}</MDBLink>,
-          edit: <MDBLink className="text-primary p-0" to='/edit_service'>Edit</MDBLink>,
+          edit: <MDBLink className="text-primary p-0" to={`/edit_service/${value.id}`}>Edit</MDBLink>,
           clickEvent: row => testClickEvent(row)
         }
       })
