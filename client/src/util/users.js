@@ -22,7 +22,7 @@ export const userColumns = [
     },
     {
         label: 'Enable/Disable',
-        field: 'enable_disable',
+        field: 'disabled',
     },
 ]
 

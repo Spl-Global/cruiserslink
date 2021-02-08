@@ -20,7 +20,7 @@ class EmptyPage extends React.Component {
               xl="8"
               className='mx-auto float-none white z-depth-1 p-4 px-lg-5'
             >
-              <div class="d-sm-flex align-items-center">
+              <div className="d-sm-flex align-items-center">
                 <div>
                   <img className="img-fluid" width="200" src={logo}/>
                   <h2 className="h2-responsive mt-3 mb-2">404. That's an error.</h2>

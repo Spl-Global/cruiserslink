@@ -5,10 +5,12 @@ import SideNavigation from '../sideNavigation'
 import { ResetFeedbackAndRatings, ResetServices, ResetTipsAndTricks, ResetUsers, SetFeedbackAndRatings, SetServices, SetTipAndTricks, SetUsers } from '../../Redux/actions/actions';
 import { firestore } from '../../services/base'
 import { connect } from 'react-redux';
+import { useAuth } from '../../services/Auth';
 const DashboardPage = (props) => {
-  const limit = 25
+  const limit = 25;
+  const { currentUser } = useAuth();
   const [error, setError] = useState('')
-  const { users, setUsers, resetUsers } = props
+  const { users, setUsers, resetUsers, pageToken } = props
   const { services, setServices, resetServices } = props
   const { tipsandtricks, setTipsAndTricks, resetTipsAndTricks } = props
   const { rating_and_feedbacks, setFeedbackAndRatings, resetFeedbackAndRatings } = props
@@ -133,10 +135,37 @@ const DashboardPage = (props) => {
     }
   }
 
+  const fetchUsersFromAPI = async function () {
+    try {
+      if (users.length > 0 && pageToken) {
+        const response = await fetch(`api/getUsers?pageToken=${pageToken}`, { method: 'GET', headers: { Authorization: `Bearer ${currentUser.uid}`, }, })
+        const jsonResponse = await response.json()
+        if (response.status === 200) {
+          setUsers([...users, ...jsonResponse.users], jsonResponse.pageToken)
+        } else {
+          setError(jsonResponse.message)
+        }
+      } else if (users.length > 0 && !pageToken) {
+
+      } else {
+        const _response = await fetch(`api/getUsers?pageToken=${pageToken}`, { method: 'GET', headers: { Authorization: `Bearer ${currentUser.uid}`, }, })
+        const _jsonResponse = await _response.json()
+        if (_response.status === 200) {
+          setUsers(_jsonResponse.users, _jsonResponse.pageToken)
+        } else {
+          setError(jsonResponse.message)
+        }
+      }
+    } catch (err) {
+      setError(err.message)
+    }
+  }
+
   useEffect(() => {
     fetchUsers()
     fetchServices()
     fetchTipsAndTricks()
+    // fetchUsersFromAPI()
   }, [])
   return (
     <React.Fragment>
@@ -147,7 +176,7 @@ const DashboardPage = (props) => {
         {error && <MDBAlert color="danger">{error}</MDBAlert>}
       </MDBCard>
       <MDBRow className="mb-4">
-        <MDBCol xl="3" md="6" className="mb-3">
+        <MDBCol xl="4" md="6" className="mb-3">
           <MDBCard color="primary-color" className="classic-admin-card">
             <MDBCardBody className="py-4 px-3">
               <div className="float-right">
@@ -158,7 +187,7 @@ const DashboardPage = (props) => {
             </MDBCardBody>
           </MDBCard>
         </MDBCol>
-        <MDBCol xl="3" md="6" className="mb-3">
+        <MDBCol xl="4" md="6" className="mb-3">
           <MDBCard color="warning-color" className="classic-admin-card">
             <MDBCardBody className="py-4 px-3">
               <div className="float-right">
@@ -169,7 +198,7 @@ const DashboardPage = (props) => {
             </MDBCardBody>
           </MDBCard>
         </MDBCol>
-        <MDBCol xl="3" md="6" className="mb-3">
+        <MDBCol xl="4" md="6" className="mb-3">
           <MDBCard color="primary-color" className="classic-admin-card">
             <MDBCardBody className="py-4 px-3">
               <div className="float-right">
@@ -180,7 +209,7 @@ const DashboardPage = (props) => {
             </MDBCardBody>
           </MDBCard>
         </MDBCol>
-        <MDBCol xl="3" md="6" className="mb-3">
+        {/* <MDBCol xl="3" md="6" className="mb-3">
           <MDBCard color="red accent-2" className="classic-admin-card">
             <MDBCardBody className="py-4 px-3">
               <div className="float-right">
@@ -190,7 +219,7 @@ const DashboardPage = (props) => {
               <h3><strong>NA</strong></h3>
             </MDBCardBody>
           </MDBCard>
-        </MDBCol>
+        </MDBCol> */}
       </MDBRow>
     </React.Fragment>
   )
@@ -198,6 +227,7 @@ const DashboardPage = (props) => {
 const mapStateToProps = state => {
   return {
     users: state.usersReducer.users,
+    pageToken: state.usersReducer.pageToken,
     services: state.servicesReducer.services,
     tipsandtricks: state.tipsandtricksReducer.tipsandtricks,
     rating_and_feedbacks: state.ratingsandfeedbackReducer.rating_and_feedbacks,
@@ -205,8 +235,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    setUsers: function (users) {
-      dispatch(SetUsers(users))
+    setUsers: function (users, pageToken) {
+      dispatch(SetUsers(users, pageToken))
     },
     setServices: function (services) {
       dispatch(SetServices(services))

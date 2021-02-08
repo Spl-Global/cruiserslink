@@ -25,7 +25,9 @@ const TipsAndTricksPage = (props) => {
                     anonymous: JSON.stringify(tipandtrick.anonymous),
                     avgRating: tipandtrick.avgRating,
                     numRating: tipandtrick.numRating,
+                    _rating_: <MDBLink className="text-primary p-0" to={`/ratingsandcomments/tipandtrick/${tipandtrick.id}`}>View Ratings</MDBLink>,
                     edit: <MDBLink className="text-primary p-0" to={`/edit_tipandtrick/${tipandtrick.id}`}>Edit</MDBLink>,
+                    // delete: < MDBLink className="text-danger p-0" to="#">Delete</MDBLink >,
                     clickEvent: row => testClickEvent(row)
                 }
             })

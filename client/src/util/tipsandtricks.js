@@ -33,9 +33,17 @@ export const TipsAndTricksColumns = [
         field: 'numRating',
     },
     {
+        label: 'View Ratings',
+        field: '_rating_',
+    },
+    {
         label: 'Edit',
         field: 'edit',
     },
+    // {
+    //     label: 'Delete',
+    //     field: 'delete'
+    // }
 ]
 
 export const TipsAndTricksCategories = {

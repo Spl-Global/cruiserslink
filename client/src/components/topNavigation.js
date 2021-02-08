@@ -56,11 +56,11 @@ const TopNavigation = () => {
                             <MDBIcon fas icon="lightbulb" className="mr-2" />Tips And Tricks
                             </MDBNavLink>
                     </MDBNavItem>
-                    <MDBNavItem>
+                    {/* <MDBNavItem>
                         <MDBNavLink activeClassName="active" className="nav-link Ripple-parent" to="/ratingsandcomments">
                             <MDBIcon fas icon="star" className="mr-2" />Ratings
                             </MDBNavLink>
-                    </MDBNavItem>
+                    </MDBNavItem> */}
                     <MDBNavItem>
                         <MDBNavLink activeClassName="active" className="nav-link Ripple-parent" to="/settings">
                             <MDBIcon fas icon="cog" className="mr-2" />Settings

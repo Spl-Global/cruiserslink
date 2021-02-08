@@ -1,9 +1,9 @@
 import * as actions from './actionTypes'
 // Users
-export const SetUsers = function (users) {
+export const SetUsers = function (users, pageToken) {
     return {
         type: actions.SET_USERS,
-        payload: { users }
+        payload: { users, pageToken }
     }
 }
 export const ResetUsers = function () {

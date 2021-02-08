@@ -5,7 +5,7 @@ import app, { auth } from '../../services/base';
 import firebase from 'firebase/app'
 const SettingsPage = () => {
   const { currentUser } = useAuth()
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState(currentUser.email)
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState(null)
   const [confirmNewPassword, setConfirmNewPassword] = useState('')
@@ -14,7 +14,7 @@ const SettingsPage = () => {
   const [loading, setLoading] = useState('')
   const reauthenticate = (pass) => {
     const user = app.auth().currentUser;
-    const cred = firebase.default.auth.EmailAuthProvider.credential(email, pass);
+    const cred = firebase.default.auth.EmailAuthProvider.credential(user.email, pass);
     return user.reauthenticateWithCredential(cred);
   }
   const handleChangePassword = function (event) {
@@ -25,17 +25,30 @@ const SettingsPage = () => {
         setError(null); setLoading(true);
         reauthenticate(currentPassword).then(() => {
           const user = firebase.default.auth().currentUser;
-          user.updatePassword(newPassword).then(() => {
-            setError('Password Changed Successfully'); setLoading(false); setErrorType('success');
-            setEmail(''); setNewPassword(''); setConfirmNewPassword(''); setCurrentPassword('');
-          })
-            .catch((error) => {
+          if (user.email !== email) {
+            user.updateEmail(email).then(() => {
+              user.updatePassword(newPassword).then(() => {
+                setError('Password/Email Changed Successfully'); setLoading(false); setErrorType('success');
+                setNewPassword(''); setConfirmNewPassword(''); setCurrentPassword('');
+              })
+                .catch((error) => {
+                  setError(error.message); setLoading(false); setErrorType('danger');
+                });
+            }).catch(err => {
               setError(error.message); setLoading(false); setErrorType('danger');
-            });
-        })
-          .catch((error) => {
-            setError(error.message); setLoading(false); setErrorType('danger');
-          });
+            })
+          } else {
+            user.updatePassword(newPassword).then(() => {
+              setError('Password Changed Successfully'); setLoading(false); setErrorType('success');
+              setEmail(''); setNewPassword(''); setConfirmNewPassword(''); setCurrentPassword('');
+            })
+              .catch((error) => {
+                setError(error.message); setLoading(false); setErrorType('danger');
+              });
+          }
+        }).catch((error) => {
+          setError(error.message); setLoading(false); setErrorType('danger');
+        });
       } else {
         setError('Passwords Do Not Match'); setLoading(false); setErrorType('danger');
       }

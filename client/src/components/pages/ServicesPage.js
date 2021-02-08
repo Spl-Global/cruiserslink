@@ -28,6 +28,7 @@ const ServicesPage = (props) => {
           avgRating: value.avgRating,
           numRating: value.numRating,
           time: `${value.StartTime}:00 - ${value.EndTime <= 23 ? value.EndTime : 0}:00`,
+          _rating_: <MDBLink className="text-primary p-0" to={`/ratingsandcomments/service/${value.id}`}>View Ratings</MDBLink>,
           ServiceStatus: <MDBLink className="text-primary p-0" to='#'>{value.ServiceStatus}</MDBLink>,
           edit: <MDBLink className="text-primary p-0" to={`/edit_service/${value.id}`}>Edit</MDBLink>,
           clickEvent: row => testClickEvent(row)

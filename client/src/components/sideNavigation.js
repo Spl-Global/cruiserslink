@@ -49,12 +49,12 @@ const TopNavigation = () => {
                         Tips And Tricks
                     </MDBListGroupItem>
                 </NavLink>
-                <NavLink to="/ratingsandcomments" activeClassName="activeClass">
+                {/* <NavLink to="/ratingsandcomments" activeClassName="activeClass">
                     <MDBListGroupItem>
                         <MDBIcon icon="star" className="mr-3" />
                         Ratings
                         </MDBListGroupItem>
-                </NavLink>
+                </NavLink> */}
                 <NavLink to="/settings" activeClassName="activeClass">
                     <MDBListGroupItem>
                         <MDBIcon icon="cog" className="mr-3" />

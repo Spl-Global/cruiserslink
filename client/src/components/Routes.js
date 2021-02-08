@@ -37,7 +37,7 @@ const Routes = () => {
       <PrivateRoute path='/users' component={UsersPage} />
       <PrivateRoute path='/services' component={ServicesPage} />
       <PrivateRoute path='/tipsandtricks' component={TipsAndTricksPage} />
-      <PrivateRoute path='/ratingsandcomments' component={RatingsAndCommentsPage} />
+      <PrivateRoute path='/ratingsandcomments/:type/:id' component={RatingsAndCommentsPage} />
 
       <PrivateRoute path='/edit_service/:id' component={EditServicePage} />
       <PrivateRoute path='/edit_users/:id' component={EditUserPage} />
