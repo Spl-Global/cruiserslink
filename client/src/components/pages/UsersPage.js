@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge, MDBAlert, MDBLink } from 'mdbreact';
-import TopNavigation from '../topNavigation'
-import SideNavigation from '../sideNavigation'
 import { SetUsers } from '../../Redux/actions/actions';
 import { connect } from 'react-redux';
 import { firestore } from '../../services/base'

@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import { MDBInput, MDBCol, MDBRow, MDBBtn, MDBContainer, MDBAlert, } from 'mdbreact';
-import TopNavigation from '../topNavigation'
-import SideNavigation from '../sideNavigation'
 import { useAuth } from '../../services/Auth';
 import app, { auth } from '../../services/base';
 import firebase from 'firebase/app'
