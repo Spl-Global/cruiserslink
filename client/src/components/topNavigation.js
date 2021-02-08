@@ -3,8 +3,11 @@ import logo from "../assets/cruiserslink.png";
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBIcon } from 'mdbreact';
 import { useAuth } from '../services/Auth';
 import { useHistory } from 'react-router-dom';
+import { ResetFeedbackAndRatings, ResetServices, ResetTipsAndTricks, ResetUsers } from '../Redux/actions/actions';
+import { connect } from 'react-redux';
 
-const TopNavigation = () => {
+const TopNavigation = (props) => {
+    const { resetUsers, resetServices, resetTipsAndTricks, resetFeedbackAndRatings } = props
     const state = {
         collapse: false,
         dropdownOpen: false,
@@ -13,8 +16,9 @@ const TopNavigation = () => {
     const history = useHistory()
     const handleSignOut = async function (event) {
         try {
-            event.preventDefault()
-            await logout()
+            event.preventDefault();
+            await logout();
+            resetUsers(); resetServices(); resetTipsAndTricks(); resetFeedbackAndRatings();
             history.push('/login')
         } catch (err) {
 
@@ -76,5 +80,13 @@ const TopNavigation = () => {
         </MDBNavbar>
     );
 }
-
-export default TopNavigation;
+const mapStateToProps = null
+const mapDispatchToProps = dispatch => {
+    return {
+        resetUsers: function () { dispatch(ResetUsers()) },
+        resetServices: function () { dispatch(ResetServices()) },
+        resetTipsAndTricks: function () { dispatch(ResetTipsAndTricks()) },
+        resetFeedbackAndRatings: function () { dispatch(ResetFeedbackAndRatings()) }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(TopNavigation);

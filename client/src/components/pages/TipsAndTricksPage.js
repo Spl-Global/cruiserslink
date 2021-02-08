@@ -12,7 +12,7 @@ const TipsAndTricksPage = (props) => {
     const [data, setData] = useState({ columns: TipsAndTricksColumns, rows: [] })
     const [error, setError] = useState('')
     function testClickEvent(param) {
-        console.log(param);
+        // console.log(param);
     }
     useEffect(() => {
         setData({

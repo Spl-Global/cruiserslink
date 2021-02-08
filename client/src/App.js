@@ -5,6 +5,7 @@ import SideNavigation from './components/sideNavigation';
 import { AuthProvider, useAuth } from './services/Auth'
 import './index.css';
 import { auth } from './services/base';
+ 
 const MainApp = () => {
   const { currentUser } = useAuth()
   return (

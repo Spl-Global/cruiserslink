@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 const UsersPage = ({ users, setUsers }) => {
   const limit = 25;
   function testClickEvent(param) {
-    console.log(param);
+    // console.log(param);
   }
   const [data, setData] = useState({ columns: userColumns, rows: [] })
   const [error, setError] = useState('')
