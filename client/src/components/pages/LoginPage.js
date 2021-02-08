@@ -1,5 +1,6 @@
 import React, { createRef, useEffect, useState } from 'react'
-import { MDBInput, MDBCol, MDBRow, MDBBtn, MDBContainer, MDBAlert } from 'mdbreact';
+import { MDBInput, MDBCol, MDBRow, MDBBtn, MDBContainer, MDBAlert, MDBLink } from 'mdbreact';
+import logo from "../../assets/cruiserslink.png";
 import { useAuth } from '../../services/Auth'
 import { useHistory } from 'react-router-dom'
 const LoginPage = () => {
@@ -39,14 +40,17 @@ const LoginPage = () => {
   }
   return (
     <React.Fragment>
-      <MDBContainer className='mt-5 text-center'>
+      <MDBContainer className='d-flex h-100 justify-content-center flex-column'>
         <MDBRow>
           <MDBCol
             md='8'
             lg='7'
-            className='text-left mx-auto float-none white z-depth-1 p-4 p-lg-5'
+            className='mx-auto float-none white z-depth-1 p-4 px-lg-5'
           >
-            <h2 className='text-center'>Login</h2>
+            <div className="text-center">
+              <img alt="CruisersLink Logo" className="img-fluid mb-4" src={logo} width="200" />
+              <h2>Login</h2>
+            </div>
             {loading &&
               <div className='my-5 d-flex justify-content-around'>
                 <div className='spinner-border text-primary' role='status'>
@@ -81,12 +85,15 @@ const LoginPage = () => {
                 type='password'
                 icon='lock'
               />
-              <MDBBtn
-                onClick={handleSignIn}
-                disabled={loading}
-                color='mdb-color' className='text-xs-left'>
-                Login
-              </MDBBtn>
+              <div className="d-flex justify-content-between align-items-center">
+                <MDBBtn
+                  onClick={handleSignIn}
+                  disabled={loading}
+                  color='mdb-color' className='text-xs-left'>
+                  Login
+                </MDBBtn>
+                <MDBLink className="text-primary p-0" to='/forgot-password'>Forgot Password?</MDBLink>
+              </div>
             </form>
           </MDBCol>
         </MDBRow>

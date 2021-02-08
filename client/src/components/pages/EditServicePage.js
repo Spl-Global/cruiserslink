@@ -49,8 +49,6 @@ const EditServicePage = (props) => {
   // console.log(serviceData)
   return (
     <React.Fragment>
-      {/* <TopNavigation />
-      <SideNavigation /> */}
       <MDBContainer className='mt-5 text-center'>
         <MDBRow>
           <MDBCol
