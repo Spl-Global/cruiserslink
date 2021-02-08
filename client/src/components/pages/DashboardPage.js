@@ -140,8 +140,8 @@ const DashboardPage = (props) => {
   }, [])
   return (
     <React.Fragment>
-      <TopNavigation />
-      <SideNavigation />
+      {/* <TopNavigation /> */}
+      {/* <SideNavigation /> */}
       <MDBCard className="mb-5">
         <MDBCardBody id="breadcrumb" className="d-flex align-items-center justify-content-between">
           <h2 className="mb-0">Dashboard</h2>
