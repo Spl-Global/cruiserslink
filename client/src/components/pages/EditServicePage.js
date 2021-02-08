@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { MDBInput, MDBCol, MDBRow, MDBBtn, MDBContainer, MDBAlert } from 'mdbreact';
-import GoogleMapReact from 'google-map-react';
-import TopNavigation from '../topNavigation'
-import SideNavigation from '../sideNavigation'
 import { useParams } from 'react-router-dom';
 import { SetServices } from '../../Redux/actions/actions';
 import { connect } from 'react-redux';

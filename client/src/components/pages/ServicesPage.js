@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge, MDBLink, MDBAlert } from 'mdbreact';
-import TopNavigation from '../topNavigation'
-import SideNavigation from '../sideNavigation'
 import { ServicesColumns, CategoriesToName, SubCategoriesToName } from '../../util/services';
 import { SetServices } from '../../Redux/actions/actions';
 import { connect } from 'react-redux';

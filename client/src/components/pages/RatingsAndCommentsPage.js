@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge, MDBLink } from 'mdbreact';
-import TopNavigation from '../topNavigation'
-import SideNavigation from '../sideNavigation'
 const RatingsAndCommentsPage = () => {
     function testClickEvent(param) {
         console.log(param);
