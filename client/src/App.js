@@ -2,20 +2,30 @@ import React, { Component } from 'react';
 import Routes from '../src/components/Routes';
 import TopNavigation from './components/topNavigation';
 import SideNavigation from './components/sideNavigation';
-import { AuthProvider } from './services/Auth'
+import { AuthProvider, useAuth } from './services/Auth'
 import './index.css';
-const App = () => {
+import { auth } from './services/base';
+const MainApp = () => {
+  const { currentUser } = useAuth()
   return (
-    <AuthProvider>
+    currentUser ?
       <div className="flexible-content">
-        {/* <TopNavigation /> */}
-        {/* <SideNavigation /> */}
+        <TopNavigation />
+        <SideNavigation />
         <main id="content" className="p-xl-5 p-lg-4 p-3">
           <Routes />
         </main>
-      </div>
+      </div> :
+      <main className="vh-100">
+        <Routes />
+      </main>
+  )
+}
+const App = () => {
+  return (
+    <AuthProvider>
+      <MainApp />
     </AuthProvider>
   );
 }
-
 export default App;

@@ -47,8 +47,6 @@ const EditTipAndTrick = (props) => {
     const { category, description, subject, subcategory, anonymous } = TipAndTrickData
     return (
         <React.Fragment>
-            <TopNavigation />
-            <SideNavigation />
             <MDBContainer className='mt-5 text-center'>
                 <MDBRow>
                     <MDBCol

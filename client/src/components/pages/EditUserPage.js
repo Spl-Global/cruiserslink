@@ -64,8 +64,6 @@ const EditUserPage = (props) => {
     const { Telephone, WhatsApp } = userType === "cruiser" ? cruiserData : businessData
     return (
         <React.Fragment>
-            <TopNavigation />
-            <SideNavigation />
             <MDBContainer className='mt-5 text-center'>
                 <MDBRow>
                     <MDBCol
