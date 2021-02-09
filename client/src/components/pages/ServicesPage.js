@@ -3,7 +3,7 @@ import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge, MDBLink, MDBAlert, MDBBtn
 import { ServicesColumns, CategoriesToName, SubCategoriesToName } from '../../util/services';
 import { SetServices } from '../../Redux/actions/actions';
 import { connect } from 'react-redux';
-import { firestore } from '../../services/base';
+import { firestore, storage } from '../../services/base';
 import Swal from 'sweetalert2'
 const ServicesPage = (props) => {
   const limit = 25;
@@ -83,6 +83,7 @@ const ServicesPage = (props) => {
 
   const handleDeleteService = function (event, id) {
     event.preventDefault()
+    console.log(id)
     Swal.fire({
       title: 'Are you sure?',
       text: 'You will not be able to recover this service and all the reviews linked to it.',
@@ -93,10 +94,10 @@ const ServicesPage = (props) => {
     }).then((result) => {
       if (result.isConfirmed) {
         firestore.collection('Services').doc(id).delete().then(() => {
-          firestore.collection('ServiceDetails').doc(id).delete().then(() => {
-            Swal.fire({ title: 'Success', text: 'Service Deleted Successfully', icon: 'success' }).then((value) => {
-              setServices(services.filter(x => x.id !== id));
-            })
+            firestore.collection('ServiceDetails').doc(id).delete().then(() => {
+              Swal.fire({ title: 'Success', text: 'Service Deleted Successfully', icon: 'success' }).then((value) => {
+                setServices(services.filter(x => x.id !== id));
+              })
           }).catch(err => {
             Swal.fire({ title: 'Error', text: err.message, icon: 'error' }).then((value) => { })
           })

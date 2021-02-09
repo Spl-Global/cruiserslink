@@ -166,7 +166,7 @@ const EditServicePage = (props) => {
                 group
                 type='time'
               /> */}
-              {/* {ProductImages ?
+              {ProductImages ?
                 ProductImages.map(image => {
                   return (
                     <img
@@ -175,7 +175,7 @@ const EditServicePage = (props) => {
                       alt="..."
                     />
                   )
-                }) : null} */}
+                }) : null}
               <MDBBtn onClick={handleSubmitChanges} color='mdb-color' className='text-xs-left'>
                 Update
               </MDBBtn>
