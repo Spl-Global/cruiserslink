@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { MDBInput, MDBCol, MDBRow, MDBBtn, MDBContainer, MDBAlert } from 'mdbreact';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { SetTipAndTricks } from '../../Redux/actions/actions';
 import { connect } from 'react-redux';
 import { TipsAndTricksSubCategories, TipsAndTricksCategories } from '../../util/tipsandtricks'
 import { firestore } from '../../services/base';
+import Swal from 'sweetalert2';
 const EditTipAndTrick = (props) => {
     const { id } = useParams();
+    const history = useHistory();
     const { tipsandtricks, setTipsAndTricks } = props
     const [TipAndTrickData, setTipAndTrickData] = useState({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [errorType, setErrorType] = useState('danger')
     useEffect(() => {
-        setErrorType('danger'); setError(''); setLoading(true);
+        setLoading(true);
         tipsandtricks.forEach(tipandtrick => {
             if (tipandtrick.id === id) {
-                setTipAndTrickData(tipandtrick); setErrorType('danger'); setError(''); setLoading(false);
+                setTipAndTrickData(tipandtrick); setLoading(false);
             }
         })
-        setErrorType('danger'); setError(''); setLoading(false);
+        setLoading(false);
     }, [id])
 
     const handleChangeData = function (key, value) {
@@ -32,12 +34,23 @@ const EditTipAndTrick = (props) => {
     const handleSubmitChange = async function (event) {
         try {
             event.preventDefault()
-            setLoading(true); setError(''); setErrorType('danger');
+            setLoading(true);
             await firestore.collection('TipsAndTricks').doc(id).set(TipAndTrickData)
             setTipsAndTricks(tipsandtricks.map(tipandtrick => tipandtrick.id === id ? TipAndTrickData : tipandtrick))
-            setLoading(false); setError('Tip And Trick Edit Successful'); setErrorType('success');
+            setLoading(false);
+            const result = await Swal.fire({
+                title: 'Success',
+                text: 'Tip And Trick Updated Successfully',
+                icon: 'success',
+            })
+            if (result.value) history.goBack()
         } catch (err) {
-            setLoading(false); setError(err.message); setErrorType('danger');
+            setLoading(false);
+            await Swal.fire({
+                title: 'Error',
+                text: err.message,
+                icon: 'error',
+            })
         }
     }
 
@@ -92,6 +105,20 @@ const EditTipAndTrick = (props) => {
                                         }).map(x => {
                                             return (
                                                 <option key={x} value={x}>{TipsAndTricksSubCategories[x]}</option>
+                                            )
+                                        })}
+                                    </select>
+                                </div>
+                                <div className="md-form form-group">
+                                    <select
+                                        value={TipAndTrickData.status}
+                                        onChange={e => {
+                                            handleChangeData("status", e.target.value)
+                                        }}
+                                        className="form-control custom-select">
+                                        {["active", "pending"].map(x => {
+                                            return (
+                                                <option value={x}>{x}</option>
                                             )
                                         })}
                                     </select>

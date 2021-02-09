@@ -16,7 +16,8 @@
     "react-scripts": "4.0.1",
     "react-spinners": "^0.10.4",
     "redux": "^4.0.5",
-    "sweetalert": "^2.1.2"
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^10.14.0"
   },
   "scripts": {
     "start": "react-scripts start",

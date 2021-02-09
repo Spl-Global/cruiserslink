@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { MDBInput, MDBCol, MDBRow, MDBBtn, MDBContainer, MDBAlert } from 'mdbreact';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { SetUsers } from '../../Redux/actions/actions';
 import { connect } from 'react-redux';
 import { firestore } from '../../services/base';
+import Swal from 'sweetalert2';
 const EditUserPage = (props) => {
     const { id } = useParams()
+    const history = useHistory()
     const { users, setUsers } = props
     const [error, setError] = useState('')
     const [errorType, setErrorType] = useState('danger')
@@ -50,9 +52,20 @@ const EditUserPage = (props) => {
             setError(null); setErrorType('danger'); setLoading(true);
             await firestore.collection('Users').doc(id).set(userData)
             setUsers(users.map(x => x.id === id ? userData : x))
-            setError('User Edited Successfully'); setErrorType('success'); setLoading(false);
+            setLoading(false);
+            const result = await Swal.fire({
+                title: 'Success',
+                text: 'User Updated Successfully',
+                icon: 'success',
+            })
+            if (result.value) history.goBack();
         } catch (err) {
-            setError(err.message); setErrorType('danger'); setLoading(false);
+            setLoading(false);
+            const result = await Swal.fire({
+                title: 'Error',
+                text: err.message,
+                icon: 'error',
+            })
         }
     }
     const { userType, cruiserData, businessData } = userData

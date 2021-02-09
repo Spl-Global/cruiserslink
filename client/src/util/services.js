@@ -44,17 +44,21 @@ export const ServicesColumns = [
         field: 'time',
     },
     {
-        label: 'View Ratings',
-        field: '_rating_',
-    },
-    {
         label: 'Status',
         field: 'ServiceStatus',
+    },
+    {
+        label: 'View Ratings',
+        field: '_rating_',
     },
     {
         label: 'Edit',
         field: 'edit',
     },
+    {
+        label: 'Delete',
+        field: 'delete',
+    }
 ]
 
 export const CategoriesToName = {

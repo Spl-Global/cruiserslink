@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { MDBInput, MDBCol, MDBRow, MDBBtn, MDBContainer, MDBAlert } from 'mdbreact';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { SetServices } from '../../Redux/actions/actions';
 import { connect } from 'react-redux';
 import { CategoriesToName, SubCategoriesToName } from '../../util/services'
 import { firestore } from '../../services/base';
+import Swal from 'sweetalert2';
 const EditServicePage = (props) => {
   const { id } = useParams()
+  const history = useHistory();
   const { services, setServices } = props
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -34,12 +36,23 @@ const EditServicePage = (props) => {
   const handleSubmitChanges = async function (event) {
     try {
       event.preventDefault();
-      setError(''); setErrorType('danger'); setLoading(true);
+      setLoading(true);
       await firestore.collection('Services').doc(id).set(serviceData)
       setServices(services.map(service => service.id === id ? serviceData : service))
-      setError('Service Edited Successfully'); setErrorType('success'); setLoading(false);
+      setLoading(false);
+      const result = await Swal.fire({
+        title: 'Success',
+        text: 'Service Updated Successfully',
+        icon: 'success',
+      })
+      if (result.value) history.goBack()
     } catch (err) {
-      setError(err.message); setErrorType('danger'); setLoading(false);
+      setLoading(false);
+      await Swal.fire({
+        title: 'Error!',
+        text: err.message,
+        icon: 'error',
+      })
     }
   }
   const { ProductName, ProductDescription, ServiceStatus, ServiceType, Category, SubCategory, ContactNumber, Pricing, ProductImages } = serviceData

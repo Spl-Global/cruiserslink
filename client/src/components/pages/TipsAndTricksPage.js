@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge, MDBLink } from 'mdbreact';
+import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge, MDBLink, MDBBtn } from 'mdbreact';
 import { TipsAndTricksCategories, TipsAndTricksColumns, TipsAndTricksSubCategories, } from '../../util/tipsandtricks'
 import { connect } from 'react-redux'
 import { SetTipAndTricks } from '../../Redux/actions/actions'
 import { firestore } from '../../services/base';
+import Swal from 'sweetalert2';
 const TipsAndTricksPage = (props) => {
     const limit = 25;
     const { tipsandtricks, setTipsAndTricks } = props
@@ -11,6 +12,27 @@ const TipsAndTricksPage = (props) => {
     const [error, setError] = useState('')
     function testClickEvent(param) {
         console.log(param);
+    }
+    const handleDeleteTipAndTrick = function (event, id) {
+        event.preventDefault()
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will not be able to recover this tip and trick and all the reviews linked to it.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                firestore.collection('TipsAndTricks').doc(id).delete().then(() => {
+                    firestore.collection('TipsAndTrickReviews').doc(id).delete().then(() => {
+                        Swal.fire({ title: 'Success', text: 'Tip And Trick Deleted Successfully', icon: 'success' }).then((value) => {
+                            setTipsAndTricks(tipsandtricks.filter(x => x.id !== id));
+                        })
+                    })
+                })
+            }
+        })
     }
     useEffect(() => {
         setData({
@@ -27,7 +49,9 @@ const TipsAndTricksPage = (props) => {
                     numRating: tipandtrick.numRating,
                     _rating_: <MDBLink className="text-primary p-0" to={`/ratingsandcomments/tipandtrick/${tipandtrick.id}`}>View Ratings</MDBLink>,
                     edit: <MDBLink className="text-primary p-0" to={`/edit_tipandtrick/${tipandtrick.id}`}>Edit</MDBLink>,
-                    // delete: < MDBLink className="text-danger p-0" to="#">Delete</MDBLink >,
+                    // status: < MDBLink className="text-primary p-0" to="#">{tipandtrick.status}</MDBLink >,
+                    status: tipandtrick.status,
+                    delete: < MDBBtn onClick={e => handleDeleteTipAndTrick(e, tipandtrick.id)} outline color="danger">Delete</ MDBBtn>,
                     clickEvent: row => testClickEvent(row)
                 }
             })
@@ -94,6 +118,11 @@ const TipsAndTricksPage = (props) => {
                         pagesAmount={4}
                         data={data}
                         materialSearch
+                        disableRetreatAfterSorting={true}
+                        onPageChange={value => {
+                            if (value.activePage === value.pagesAmount)
+                                setTimeout(fetchTipsAndTricks(), 250);
+                        }}
                     />
                 </MDBCardBody>
             </MDBCard>

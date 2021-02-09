@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge, MDBLink, MDBAlert } from 'mdbreact';
+import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge, MDBLink, MDBAlert, MDBBtn } from 'mdbreact';
 import { ServicesColumns, CategoriesToName, SubCategoriesToName } from '../../util/services';
 import { SetServices } from '../../Redux/actions/actions';
 import { connect } from 'react-redux';
 import { firestore } from '../../services/base';
+import Swal from 'sweetalert2'
 const ServicesPage = (props) => {
   const limit = 25;
   function testClickEvent(param) {
@@ -12,6 +13,7 @@ const ServicesPage = (props) => {
   const { services, setServices } = props
   const [data, setData] = useState({ columns: ServicesColumns, rows: [] })
   const [error, setError] = useState('')
+
   useEffect(() => {
     setData({
       columns: data.columns,
@@ -29,13 +31,16 @@ const ServicesPage = (props) => {
           numRating: value.numRating,
           time: `${value.StartTime}:00 - ${value.EndTime <= 23 ? value.EndTime : 0}:00`,
           _rating_: <MDBLink className="text-primary p-0" to={`/ratingsandcomments/service/${value.id}`}>View Ratings</MDBLink>,
-          ServiceStatus: <MDBLink className="text-primary p-0" to='#'>{value.ServiceStatus}</MDBLink>,
-          edit: <MDBLink className="text-primary p-0" to={`/edit_service/${value.id}`}>Edit</MDBLink>,
+          edit: <MDBLink outline className="text-primary p-0" to={`/edit_service/${value.id}`}>Edit</MDBLink>,
+          // ServiceStatus: <MDBLink className={value.ServiceStatus === "pending" ? "text-warning p-0" : "text-success p-0"} to='#'>{value.ServiceStatus}</MDBLink>,
+          ServiceStatus: value.ServiceStatus,
+          delete: <MDBBtn onClick={(e) => handleDeleteService(e, value.id)} color="danger" outline >Delete</MDBBtn >,
           clickEvent: row => testClickEvent(row)
         }
       })
     })
   }, [services])
+
   const fetchServices = function () {
     if (services.length > 0) {
       const lastService = services[services.length - 1]
@@ -75,9 +80,33 @@ const ServicesPage = (props) => {
         })
     }
   }
+
+  const handleDeleteService = function (event, id) {
+    event.preventDefault()
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this service and all the reviews linked to it.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        firestore.collection('Services').doc(id).delete().then(() => {
+          firestore.collection('ServiceDetails').doc(id).delete().then(() => {
+            Swal.fire({ title: 'Success', text: 'Service Deleted Successfully', icon: 'success' }).then((value) => {
+              setServices(services.filter(x => x.id !== id));
+            })
+          })
+        })
+      }
+    })
+  }
+
   useEffect(() => {
     fetchServices()
   }, [])
+
   return (
     <React.Fragment>
       <MDBCard className="mb-5">
@@ -95,6 +124,11 @@ const ServicesPage = (props) => {
             pagesAmount={4}
             data={data}
             materialSearch
+            disableRetreatAfterSorting={true}
+            onPageChange={value => {
+              if (value.activePage === value.pagesAmount)
+                setTimeout(fetchServices(), 250);
+            }}
           />
         </MDBCardBody>
       </MDBCard>

@@ -23,7 +23,6 @@ export const TipsAndTricksColumns = [
         label: 'Anonymous',
         field: 'anonymous',
     },
-
     {
         label: 'Average Ratings',
         field: 'avgRating',
@@ -33,6 +32,10 @@ export const TipsAndTricksColumns = [
         field: 'numRating',
     },
     {
+        label: 'Status',
+        field: 'status',
+    },
+    {
         label: 'View Ratings',
         field: '_rating_',
     },
@@ -40,10 +43,10 @@ export const TipsAndTricksColumns = [
         label: 'Edit',
         field: 'edit',
     },
-    // {
-    //     label: 'Delete',
-    //     field: 'delete'
-    // }
+    {
+        label: 'Delete',
+        field: 'delete'
+    }
 ]
 
 export const TipsAndTricksCategories = {
