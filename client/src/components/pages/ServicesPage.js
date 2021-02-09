@@ -97,7 +97,11 @@ const ServicesPage = (props) => {
             Swal.fire({ title: 'Success', text: 'Service Deleted Successfully', icon: 'success' }).then((value) => {
               setServices(services.filter(x => x.id !== id));
             })
+          }).catch(err => {
+            Swal.fire({ title: 'Error', text: err.message, icon: 'error' }).then((value) => { })
           })
+        }).catch(err => {
+          Swal.fire({ title: 'Error', text: err.message, icon: 'error' }).then((value) => { })
         })
       }
     })

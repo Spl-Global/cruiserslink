@@ -15,6 +15,7 @@ const TipsAndTricksPage = (props) => {
     }
     const handleDeleteTipAndTrick = function (event, id) {
         event.preventDefault()
+        console.log(id)
         Swal.fire({
             title: 'Are you sure?',
             text: 'You will not be able to recover this tip and trick and all the reviews linked to it.',
@@ -25,11 +26,15 @@ const TipsAndTricksPage = (props) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 firestore.collection('TipsAndTricks').doc(id).delete().then(() => {
-                    firestore.collection('TipsAndTrickReviews').doc(id).delete().then(() => {
+                    firestore.collection('TipsAndTricksReviews').doc(id).delete().then(() => {
                         Swal.fire({ title: 'Success', text: 'Tip And Trick Deleted Successfully', icon: 'success' }).then((value) => {
                             setTipsAndTricks(tipsandtricks.filter(x => x.id !== id));
                         })
+                    }).catch(err => {
+                        Swal.fire({ title: 'Error', text: err.message, icon: 'error' }).then((value) => { })
                     })
+                }).catch(err => {
+                    Swal.fire({ title: 'Error', text: err.message, icon: 'error' }).then((value) => { })
                 })
             }
         })
@@ -117,6 +122,14 @@ const TipsAndTricksPage = (props) => {
                         entries={10}
                         pagesAmount={4}
                         data={data}
+                        // data={{
+                        //     columns: data.columns, rows: data.rows.map(row => {
+                        //         return {
+                        //             ...row,
+                        //             delete: < MDBBtn onClick={e => handleDeleteTipAndTrick(e, row.id)} outline color="danger">Delete</ MDBBtn>,
+                        //         }
+                        //     })
+                        // }}
                         materialSearch
                         disableRetreatAfterSorting={true}
                         onPageChange={value => {

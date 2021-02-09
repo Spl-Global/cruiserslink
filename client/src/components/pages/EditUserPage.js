@@ -143,14 +143,16 @@ const EditUserPage = (props) => {
                                             value={Telephone ? Telephone.value ? Telephone.value : '' : ''}
                                             label='TelePhone'
                                             group
-                                            type='text'
+                                            type='tel'
+                                            validate
                                             onChange={e => handleChangeData(userType, "Telephone", { ...Telephone, value: e.target.value })}
                                         />
                                         <MDBInput
                                             value={WhatsApp ? WhatsApp.value ? WhatsApp.value : '' : ''}
                                             label='WhatsApp'
                                             group
-                                            type='text'
+                                            type='tel'
+                                            validate
                                             onChange={e => handleChangeData(userType, "WhatsApp", { ...WhatsApp, value: e.target.value })}
                                         />
                                     </React.Fragment> :

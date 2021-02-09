@@ -38,6 +38,7 @@ const ForgotPasswordPage = (props) => {
                 type='email'
                 icon='envelope'
                 onChange={e => setEmail(e.target.value)}
+                
               />
               <div className="d-flex justify-content-between align-items-center">
                 <MDBBtn onClick={handleSendChangePasswordRequest} color='mdb-color' className='text-xs-left'>
