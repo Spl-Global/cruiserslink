@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { MDBCard, MDBCardBody, MDBIcon, MDBRow, MDBCol, MDBAlert } from 'mdbreact';
-import TopNavigation from '../topNavigation';
-import SideNavigation from '../sideNavigation'
 import { ResetFeedbackAndRatings, ResetServices, ResetTipsAndTricks, ResetUsers, SetFeedbackAndRatings, SetServices, SetTipAndTricks, SetUsers } from '../../Redux/actions/actions';
 import { firestore } from '../../services/base'
 import { connect } from 'react-redux';
@@ -202,7 +200,7 @@ const DashboardPage = (props) => {
           <MDBCard color="primary-color" className="classic-admin-card">
             <MDBCardBody className="py-4 px-3">
               <div className="float-right">
-                <MDBIcon icon="list" className="fa-2x" />
+                <MDBIcon icon="lightbulb" className="fa-2x" />
               </div>
               <h5 className="white-text">Tips And Tricks</h5>
               <h3><strong>{tipsandtricks.length}</strong></h3>

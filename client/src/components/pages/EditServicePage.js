@@ -171,7 +171,7 @@ const EditServicePage = (props) => {
                   return (
                     <img
                       src={image}
-                      class="img-thumbnail"
+                      className="img-thumbnail"
                       alt="..."
                     />
                   )
