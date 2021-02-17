@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import DashboardPage from './pages/DashboardPage';
+import ClaimsPage from './pages/ClaimsPage';
 import SettingsPage from './pages/SettingsPage';
 import UsersPage from './pages/UsersPage';
 import ServicesPage from './pages/ServicesPage';
@@ -36,6 +37,7 @@ const Routes = () => {
       <PrivateRoute path='/settings' component={SettingsPage} />
       <PrivateRoute path='/users' component={UsersPage} />
       <PrivateRoute path='/services' component={ServicesPage} />
+      <PrivateRoute path='/claims' component={ClaimsPage} />
       <PrivateRoute path='/tipsandtricks' component={TipsAndTricksPage} />
       <PrivateRoute path='/ratingsandcomments/:type/:id' component={RatingsAndCommentsPage} />
 

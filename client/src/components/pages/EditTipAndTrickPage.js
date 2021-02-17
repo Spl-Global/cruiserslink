@@ -144,12 +144,12 @@ const EditTipAndTrick = (props) => {
                                 />
                                 {/* <div className="md-form form-group">
                                     <input
-                                        class="form-check-input"
+                                        className="form-check-input"
                                         type="checkbox"
                                         value={anonymous}
                                         id="flexCheckDefault"
                                     />
-                                    <label class="form-check-label" for="flexCheckDefault">
+                                    <label className="form-check-label" for="flexCheckDefault">
                                         Anonymous
                                 </label>
                                 </div> */}

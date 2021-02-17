@@ -41,3 +41,17 @@ export const ResetFeedbackAndRatings = function () {
         type: actions.RESET_FEEDBACK_AND_RATINGS
     }
 }
+
+// Claims
+export const SetClaims = function (claims) {
+    return {
+        type: actions.SET_CLAIMS,
+        payload: { claims: claims }
+    }
+}
+
+export const ResetClaims = function () {
+    return {
+        type: actions.RESET_CLAIMS
+    }
+}

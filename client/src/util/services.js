@@ -52,12 +52,8 @@ export const ServicesColumns = [
         field: '_rating_',
     },
     {
-        label: 'Edit',
-        field: 'edit',
-    },
-    {
-        label: 'Delete',
-        field: 'delete',
+        label: 'Actions',
+        field: 'actions',
     }
 ]
 

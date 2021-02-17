@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge, MDBLink, MDBAlert, MDBBtn } from 'mdbreact';
+import { MDBDataTable, MDBCard, MDBCardBody, MDBNavbarNav, MDBNavbar, MDBNavItem, MDBNavLink, MDBLink, MDBAlert, MDBIcon } from 'mdbreact';
 import { ServicesColumns, CategoriesToName, SubCategoriesToName } from '../../util/services';
 import { SetServices } from '../../Redux/actions/actions';
 import { connect } from 'react-redux';
@@ -31,10 +31,10 @@ const ServicesPage = (props) => {
           numRating: value.numRating,
           time: `${value.StartTime}:00 - ${value.EndTime <= 23 ? value.EndTime : 0}:00`,
           _rating_: <MDBLink className="text-primary p-0" to={`/ratingsandcomments/service/${value.id}`}>View Ratings</MDBLink>,
-          edit: <MDBLink outline className="text-primary p-0" to={`/edit_service/${value.id}`}>Edit</MDBLink>,
           // ServiceStatus: <MDBLink className={value.ServiceStatus === "pending" ? "text-warning p-0" : "text-success p-0"} to='#'>{value.ServiceStatus}</MDBLink>,
           ServiceStatus: value.ServiceStatus,
-          delete: <MDBBtn onClick={(e) => handleDeleteService(e, value.id)} color="danger" outline >Delete</MDBBtn >,
+          actions: <div><MDBLink className="text-primary d-inline mr-2 p-0" title="Edit" to={`/edit_service/${value.id}`}><MDBIcon fas icon="edit" /></MDBLink>
+          <MDBLink to="#" className="text-danger d-inline p-0" title="Delete" onClick={(e) => handleDeleteService(e, value.id)}><MDBIcon fas icon="trash-alt" /></MDBLink></div>,
           clickEvent: row => testClickEvent(row)
         }
       })
@@ -120,6 +120,19 @@ const ServicesPage = (props) => {
         </MDBCardBody>
         {error && <MDBAlert color="danger">{error}</MDBAlert>}
       </MDBCard>
+      <MDBNavbar color="white" light expand="xs" className="tabs-nav">
+        <MDBNavbarNav left>
+          <MDBNavItem active>
+            <MDBNavLink to="/">All</MDBNavLink>
+          </MDBNavItem>
+          <MDBNavItem>
+            <MDBNavLink to="/">Status 1</MDBNavLink>
+          </MDBNavItem>
+          <MDBNavItem>
+            <MDBNavLink to="/">Status 2</MDBNavLink>
+          </MDBNavItem>
+        </MDBNavbarNav>
+      </MDBNavbar>
       <MDBCard>
         <MDBCardBody>
           <MDBDataTable responsive

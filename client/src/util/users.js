@@ -23,6 +23,6 @@ export const userColumns = [
     {
         label: 'Enable/Disable',
         field: 'disabled',
-    },
+    }
 ]
 

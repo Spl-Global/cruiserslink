@@ -49,7 +49,7 @@ const LoginPage = () => {
           >
             <div className="text-center">
               <img alt="CruisersLink Logo" className="img-fluid mb-4" src={logo} width="200" />
-              <h2>Login</h2>
+              <h2>Admin Login</h2>
             </div>
             {loading &&
               <div className='my-5 d-flex justify-content-around'>
