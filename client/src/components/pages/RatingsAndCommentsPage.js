@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge, MDBLink, MDBAlert, MDBBtn } from 'mdbreact';
+import { MDBDataTable, MDBCard, MDBCardBody, MDBLink, MDBAlert } from 'mdbreact';
 import { useParams } from 'react-router-dom';
 import { firestore } from '../../services/base';
 import { ServiceFeedBackColumns, TipAndTrickFeedBackColumns } from '../../util/feedback'
@@ -208,7 +208,7 @@ const RatingsAndCommentsPage = () => {
                             columns: feedbackData.columns, rows: feedbackData.rows.map(row => {
                                 return {
                                     ...row,
-                                    delete: <MDBBtn onClick={(e) => handleDeleteFeedback(e, row.id)} color="danger"> Delete</MDBBtn>,
+                                    delete: <MDBLink to="#" className="text-danger p-0" onClick={(e) => handleDeleteFeedback(e, row.id)} color="danger"> Delete</MDBLink>,
                                 }
                             })
                         }}

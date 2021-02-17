@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { MDBDataTable, MDBCard, MDBCardBody, MDBAlert, MDBLink } from 'mdbreact';
-import { SetUsers } from '../../Redux/actions/actions';
 import { connect } from 'react-redux';
+import image from "../../assets/cruiserslink.png";
 import { firestore } from '../../services/base'
-import { userColumns } from '../../util/users'
+import { claimsColumns } from '../../util/claims'
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../services/Auth';
 const UsersPage = ({ users, setUsers }) => {
@@ -12,7 +12,7 @@ const UsersPage = ({ users, setUsers }) => {
     console.log(param);
   }
   const { currentUser } = useAuth();
-  const [data, setData] = useState({ columns: userColumns, rows: [] })
+  const [data, setData] = useState({ columns: claimsColumns, rows: [] })
   const [error, setError] = useState('')
   const history = useHistory()
   useEffect(() => {
@@ -20,11 +20,11 @@ const UsersPage = ({ users, setUsers }) => {
       columns: data.columns,
       rows: users.map(value => {
         return {
-          fullName: value.fullName,
-          userType: value.userType,
-          email: value.email,
-          edit: <MDBLink className="text-primary p-0" to={`/edit_users/${value.id}`}>Edit</MDBLink>,
-          disabled: value.disabled ? <MDBLink className="text-primary p-0" to="#" onClick={e => { e.preventDefault(); ToggleEnableDisable(value.id, false) }}>Enable</MDBLink> : <MDBLink to="#" className="text-danger p-0" onClick={e => { e.preventDefault(); ToggleEnableDisable(value.id, true) }}>Disable</MDBLink>,
+          subject: 'abc',
+          description: 'abc',
+          attachment: <img src={image} className="img-thumbnail" alt="Image"
+        />,
+          actions: value.approve ? <MDBLink className="text-primary p-0" to="#" onClick={e => { e.preventDefault(); ToggleEnableDisable(value.id, false) }}>Approve</MDBLink> : <MDBLink to="#" className="text-danger p-0" onClick={e => { e.preventDefault(); ToggleEnableDisable(value.id, true) }}>Reject</MDBLink>,
           clickEvent: row => testClickEvent(row),
         }
       })
