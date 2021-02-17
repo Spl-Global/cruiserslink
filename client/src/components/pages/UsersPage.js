@@ -24,7 +24,7 @@ const UsersPage = ({ users, setUsers }) => {
           userType: value.userType,
           email: value.email,
           edit: <MDBLink className="text-primary p-0" to={`/edit_users/${value.id}`}>Edit</MDBLink>,
-          disabled: value.disabled ? <MDBBtn outline color="primary" onClick={e => { e.preventDefault(); ToggleEnableDisable(value.id, false) }}>Enable</MDBBtn> : <MDBBtn outline color="danger" onClick={e => { e.preventDefault(); ToggleEnableDisable(value.id, true) }}>Disable</MDBBtn>,
+          disabled: value.disabled ? <MDBBtn color="primary" onClick={e => { e.preventDefault(); ToggleEnableDisable(value.id, false) }}>Enable</MDBBtn> : <MDBBtn color="danger" onClick={e => { e.preventDefault(); ToggleEnableDisable(value.id, true) }}>Disable</MDBBtn>,
           clickEvent: row => testClickEvent(row),
         }
       })

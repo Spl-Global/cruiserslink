@@ -208,7 +208,7 @@ const RatingsAndCommentsPage = () => {
                             columns: feedbackData.columns, rows: feedbackData.rows.map(row => {
                                 return {
                                     ...row,
-                                    delete: <MDBBtn onClick={(e) => handleDeleteFeedback(e, row.id)} color="danger" outline> Delete</MDBBtn>,
+                                    delete: <MDBBtn onClick={(e) => handleDeleteFeedback(e, row.id)} color="danger"> Delete</MDBBtn>,
                                 }
                             })
                         }}

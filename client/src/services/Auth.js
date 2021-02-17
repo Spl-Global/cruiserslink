@@ -61,7 +61,7 @@ export function AuthProvider({ children }) {
                 <MDBContainer>
                     <div
                         style={{ height: 400 }}
-                        className='border d-flex align-items-center justify-content-center'>
+                        className='vh-100 d-flex align-items-center justify-content-center'>
                         <ClipLoader color="#57A4FF" loading={loading} size={150} />
                     </div>
                 </MDBContainer> :

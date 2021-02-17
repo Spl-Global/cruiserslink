@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MDBDataTable, MDBCard, MDBCardBody, MDBBadge, MDBLink, MDBBtn } from 'mdbreact';
+import { MDBDataTable, MDBCard, MDBCardBody, MDBNavbarNav, MDBNavbar, MDBNavItem, MDBNavLink, MDBLink, MDBBtn } from 'mdbreact';
 import { TipsAndTricksCategories, TipsAndTricksColumns, TipsAndTricksSubCategories, } from '../../util/tipsandtricks'
 import { connect } from 'react-redux'
 import { SetTipAndTricks } from '../../Redux/actions/actions'
@@ -56,7 +56,7 @@ const TipsAndTricksPage = (props) => {
                     edit: <MDBLink className="text-primary p-0" to={`/edit_tipandtrick/${tipandtrick.id}`}>Edit</MDBLink>,
                     // status: < MDBLink className="text-primary p-0" to="#">{tipandtrick.status}</MDBLink >,
                     status: tipandtrick.status,
-                    delete: < MDBBtn onClick={e => handleDeleteTipAndTrick(e, tipandtrick.id)} outline color="danger">Delete</ MDBBtn>,
+                    delete: < MDBBtn onClick={e => handleDeleteTipAndTrick(e, tipandtrick.id)} color="danger">Delete</ MDBBtn>,
                     clickEvent: row => testClickEvent(row)
                 }
             })
@@ -113,6 +113,19 @@ const TipsAndTricksPage = (props) => {
                     <h2 className="mb-0">Tips And Tricks</h2>
                 </MDBCardBody>
             </MDBCard>
+            <MDBNavbar color="white" light expand="xs" className="tabs-nav">
+                <MDBNavbarNav left>
+                <MDBNavItem active>
+                    <MDBNavLink to="/">Status 1</MDBNavLink>
+                </MDBNavItem>
+                <MDBNavItem>
+                    <MDBNavLink to="/">Status 2</MDBNavLink>
+                </MDBNavItem>
+                <MDBNavItem>
+                    <MDBNavLink to="/">Status 3</MDBNavLink>
+                </MDBNavItem>
+                </MDBNavbarNav>
+            </MDBNavbar>
             <MDBCard>
                 <MDBCardBody>
                     <MDBDataTable
@@ -126,7 +139,7 @@ const TipsAndTricksPage = (props) => {
                         //     columns: data.columns, rows: data.rows.map(row => {
                         //         return {
                         //             ...row,
-                        //             delete: < MDBBtn onClick={e => handleDeleteTipAndTrick(e, row.id)} outline color="danger">Delete</ MDBBtn>,
+                        //             delete: < MDBBtn onClick={e => handleDeleteTipAndTrick(e, row.id)} color="danger">Delete</ MDBBtn>,
                         //         }
                         //     })
                         // }}
