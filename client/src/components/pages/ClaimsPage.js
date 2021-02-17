@@ -6,7 +6,8 @@ import { firestore } from '../../services/base'
 import { claimsColumns } from '../../util/claims'
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../services/Auth';
-const UsersPage = ({ users, setUsers }) => {
+import { SetClaims, SetUsers } from '../../Redux/actions/actions';
+const ClaimsPage = ({ claims, setClaims }) => {
   const limit = 25;
   function testClickEvent(param) {
     console.log(param);
@@ -18,31 +19,33 @@ const UsersPage = ({ users, setUsers }) => {
   useEffect(() => {
     setData({
       columns: data.columns,
-      rows: users.map(value => {
+      rows: claims.map(value => {
         return {
           subject: 'abc',
           description: 'abc',
           attachment: <img src={image} className="img-thumbnail" alt="Image"
-        />,
-          actions: value.approve ? <MDBLink className="text-primary p-0" to="#" onClick={e => { e.preventDefault(); ToggleEnableDisable(value.id, false) }}>Approve</MDBLink> : <MDBLink to="#" className="text-danger p-0" onClick={e => { e.preventDefault(); ToggleEnableDisable(value.id, true) }}>Reject</MDBLink>,
+          />,
+          actions: value.approve ?
+            <MDBLink className="text-primary p-0" to="#" onClick={e => { e.preventDefault(); ToggleEnableDisable(value.id, false) }}>Approve</MDBLink>
+            : <MDBLink to="#" className="text-danger p-0" onClick={e => { e.preventDefault(); ToggleEnableDisable(value.id, true) }}>Reject</MDBLink>,
           clickEvent: row => testClickEvent(row),
         }
       })
     })
-  }, [users])
+  }, [claims])
 
-  const fetchUsers = function () {
-    if (users.length > 0) {
-      const lastUser = users[users.length - 1]
+  const fetchClaims = function () {
+    if (claims.length > 0) {
+      const lastClaim = claims[claims.length - 1]
       firestore
         .collection('Users')
         .orderBy('__name__', 'asc')
         .limit(limit)
-        .startAfter(lastUser.id)
+        .startAfter(lastClaim.id)
         .get()
         .then(querySnap => {
-          setUsers([
-            ...users,
+          setClaims([
+            ...claims,
             ...querySnap.docs.map(doc => {
               return {
                 id: doc.id,
@@ -59,7 +62,7 @@ const UsersPage = ({ users, setUsers }) => {
         .limit(limit)
         .get()
         .then(querySnap => {
-          setUsers(querySnap.docs.map(doc => {
+          setClaims(querySnap.docs.map(doc => {
             return {
               id: doc.id,
               ...doc.data()
@@ -71,29 +74,29 @@ const UsersPage = ({ users, setUsers }) => {
     }
   }
 
-  const ToggleEnableDisable = async function (id, value) {
-    try {
-      console.log(id,value)
-      const response = await fetch('/api/enable_disable', { method: 'POST', headers: { Authorization: `Bearer ${currentUser.uid}` }, body: JSON.stringify({ id: id, value: value }) })
-      const jsonResponse = await response.json();
-      console.log(jsonResponse, response.status)
-      if (response.status === 200) {
-        setUsers(users.map(user => user.id === id ? { ...user, disabled: value } : user))
-      } else {
+  // const ToggleEnableDisable = async function (id, value) {
+  //   try {
+  //     console.log(id,value)
+  //     const response = await fetch('/api/enable_disable', { method: 'POST', headers: { Authorization: `Bearer ${currentUser.uid}` }, body: JSON.stringify({ id: id, value: value }) })
+  //     const jsonResponse = await response.json();
+  //     console.log(jsonResponse, response.status)
+  //     if (response.status === 200) {
+  //       setUsers(users.map(user => user.id === id ? { ...user, disabled: value } : user))
+  //     } else {
 
-      }
-    } catch (err) {
+  //     }
+  //   } catch (err) {
 
-    }
-  }
+  //   }
+  // }
   useEffect(() => {
-    fetchUsers()
+    fetchClaims()
   }, [])
   return (
     <React.Fragment>
       <MDBCard className="mb-5">
         <MDBCardBody id="breadcrumb" className="d-flex align-items-center justify-content-between">
-          <h2 className="mb-0">Users</h2>
+          <h2 className="mb-0">Claims</h2>
         </MDBCardBody>
         {error && <MDBAlert color="danger">{error}</MDBAlert>}
       </MDBCard>
@@ -110,7 +113,7 @@ const UsersPage = ({ users, setUsers }) => {
             materialSearch
             onPageChange={value => {
               if (value.activePage === value.pagesAmount)
-                setTimeout(fetchUsers(), 250);
+                setTimeout(fetchClaims(), 250);
             }}
           />
         </MDBCardBody>
@@ -121,12 +124,12 @@ const UsersPage = ({ users, setUsers }) => {
 };
 const mapStateToProps = state => {
   return {
-    users: state.usersReducer.users
+    claims: state.claimsReducer.claims
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    setUsers: function (users) { dispatch(SetUsers(users)) }
+    setClaims: function (claims) { dispatch(SetClaims(claims)) }
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(UsersPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ClaimsPage);
