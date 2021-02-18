@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MDBDataTable, MDBCard, MDBCardBody, MDBAlert, MDBLink } from 'mdbreact';
+import { MDBDataTable, MDBCard, MDBCardBody, MDBAlert, MDBLink, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBBtn } from 'mdbreact';
 import { SetUsers } from '../../Redux/actions/actions';
 import { connect } from 'react-redux';
 import { firestore } from '../../services/base'
@@ -94,6 +94,27 @@ const UsersPage = ({ users, setUsers }) => {
       <MDBCard className="mb-5">
         <MDBCardBody id="breadcrumb" className="d-flex align-items-center justify-content-between">
           <h2 className="mb-0">Users</h2>
+          <MDBBtn onClick={this.toggle}>Send Email</MDBBtn>
+          <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
+            <MDBModalHeader toggle={this.toggle}>MDBModal title</MDBModalHeader>
+            <MDBModalBody>
+            <MDBInput
+              label='Email Subject'
+              group
+              type='text'
+            />
+            <MDBInput
+              label='Email Body'
+              type='textarea'
+              group
+              rows="2"
+            />
+            </MDBModalBody>
+            <MDBModalFooter>
+              <MDBBtn color="secondary" onClick={this.toggle}>Close</MDBBtn>
+              <MDBBtn color="primary">Save changes</MDBBtn>
+            </MDBModalFooter>
+          </MDBModal>
         </MDBCardBody>
         {error && <MDBAlert color="danger">{error}</MDBAlert>}
       </MDBCard>
