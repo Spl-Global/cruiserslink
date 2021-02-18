@@ -96,7 +96,7 @@ const UsersPage = ({ users, setUsers }) => {
           <h2 className="mb-0">Users</h2>
           <MDBBtn onClick={this.toggle}>Send Email</MDBBtn>
           <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
-            <MDBModalHeader toggle={this.toggle}>MDBModal title</MDBModalHeader>
+            <MDBModalHeader toggle={this.toggle}>Send Email</MDBModalHeader>
             <MDBModalBody>
             <MDBInput
               label='Email Subject'
