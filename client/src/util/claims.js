@@ -1,15 +1,11 @@
 export const claimsColumns = [
     {
-        label: 'Subject',
-        field: 'subject',
+        label: 'Description',
+        field: 'description',
         attributes: {
             'aria-controls': 'DataTable',
             'aria-label': 'Name'
         }
-    },
-    {
-        label: 'Description',
-        field: 'description',
     },
     {
         label: 'Attachment',

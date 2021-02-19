@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { MDBCard, MDBCardBody, MDBIcon, MDBRow, MDBCol, MDBAlert } from 'mdbreact';
-import { ResetFeedbackAndRatings, ResetServices, ResetTipsAndTricks, ResetUsers, SetFeedbackAndRatings, SetServices, SetTipAndTricks, SetUsers } from '../../Redux/actions/actions';
+import { ResetClaims, ResetFeedbackAndRatings, ResetServices, ResetTipsAndTricks, ResetUsers, SetClaims, SetFeedbackAndRatings, SetServices, SetTipAndTricks, SetUsers } from '../../Redux/actions/actions';
 import { firestore } from '../../services/base'
 import { connect } from 'react-redux';
 import { useAuth } from '../../services/Auth';
@@ -12,6 +12,7 @@ const DashboardPage = (props) => {
   const { services, setServices, resetServices } = props
   const { tipsandtricks, setTipsAndTricks, resetTipsAndTricks } = props
   const { rating_and_feedbacks, setFeedbackAndRatings, resetFeedbackAndRatings } = props
+  const { claims, setClaims, resetClaims } = props
 
   const fetchUsers = function () {
     if (users.length > 0) {
@@ -38,6 +39,7 @@ const DashboardPage = (props) => {
     } else {
       firestore
         .collection('Users')
+        .orderBy('__name__', 'asc')
         .limit(limit)
         .get()
         .then(querySnap => {
@@ -78,6 +80,7 @@ const DashboardPage = (props) => {
     } else {
       firestore
         .collection('Services')
+        .orderBy('__name__', 'asc')
         .limit(limit)
         .get()
         .then(querySnap => {
@@ -118,6 +121,7 @@ const DashboardPage = (props) => {
     } else {
       firestore
         .collection('TipsAndTricks')
+        .orderBy('__name__', 'asc')
         .limit(limit)
         .get()
         .then(querySnap => {
@@ -133,6 +137,46 @@ const DashboardPage = (props) => {
     }
   }
 
+  const fetchClaims = function () {
+    if (claims.length > 0) {
+      const lastClaim = claims[claims.length - 1]
+      firestore
+        .collection('Claims')
+        .limit(limit)
+        .orderBy('__name__', 'asc')
+        .startAfter(lastClaim.id)
+        .get()
+        .then(querySnap => {
+          setClaims([
+            ...claims,
+            ...querySnap.docs.map(doc => {
+              return {
+                id: doc.id,
+                ...doc.data()
+              }
+            })
+          ])
+        }).catch(err => {
+          setError(err.message)
+        })
+    } else {
+      firestore
+        .collection('Claims')
+        .orderBy('__name__', 'asc')
+        .limit(limit)
+        .get()
+        .then(querySnap => {
+          setClaims(querySnap.docs.map(doc => {
+            return {
+              id: doc.id,
+              ...doc.data()
+            }
+          }))
+        }).catch(err => {
+          setError(err.message)
+        })
+    }
+  }
   const fetchUsersFromAPI = async function () {
     try {
       if (users.length > 0 && pageToken) {
@@ -160,9 +204,10 @@ const DashboardPage = (props) => {
   }
 
   useEffect(() => {
-    fetchUsers()
-    fetchServices()
-    fetchTipsAndTricks()
+    fetchUsers();
+    fetchServices();
+    fetchTipsAndTricks();
+    fetchClaims();
     // fetchUsersFromAPI()
   }, [])
   return (
@@ -229,6 +274,7 @@ const mapStateToProps = state => {
     services: state.servicesReducer.services,
     tipsandtricks: state.tipsandtricksReducer.tipsandtricks,
     rating_and_feedbacks: state.ratingsandfeedbackReducer.rating_and_feedbacks,
+    claims: state.claimsReducer.claims,
   }
 }
 const mapDispatchToProps = dispatch => {
@@ -245,6 +291,9 @@ const mapDispatchToProps = dispatch => {
     setFeedbackAndRatings: function (rating_and_feedbacks) {
       dispatch(SetFeedbackAndRatings(rating_and_feedbacks))
     },
+    setClaims: function (claims) {
+      dispatch(SetClaims(claims))
+    },
     resetUsers: function () {
       dispatch(ResetUsers())
     },
@@ -257,6 +306,9 @@ const mapDispatchToProps = dispatch => {
     resetFeedbackAndRatings: function () {
       dispatch(ResetFeedbackAndRatings())
     },
+    resetClaims: function () {
+      dispatch(ResetClaims())
+    }
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage);
