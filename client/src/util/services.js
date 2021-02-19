@@ -44,10 +44,6 @@ export const ServicesColumns = [
         field: 'time',
     },
     {
-        label: 'Status',
-        field: 'ServiceStatus',
-    },
-    {
         label: 'View Ratings',
         field: '_rating_',
     },

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MDBDataTable, MDBCard, MDBCardBody, MDBNavbarNav, MDBNavbar, MDBNavItem, MDBNavLink, MDBLink, MDBAlert, MDBIcon } from 'mdbreact';
+import { MDBDataTable, MDBCard, MDBCardBody, MDBNavbarNav, MDBNavbar, MDBNavItem, MDBNavLink, MDBLink, MDBAlert, MDBIcon, MDBBtn } from 'mdbreact';
 import { ServicesColumns, CategoriesToName, SubCategoriesToName } from '../../util/services';
 import { SetServices } from '../../Redux/actions/actions';
 import { connect } from 'react-redux';
@@ -13,6 +13,8 @@ const ServicesPage = (props) => {
   const { services, setServices } = props
   const [data, setData] = useState({ columns: ServicesColumns, rows: [] })
   const [error, setError] = useState('')
+
+  const [activePage, setActivePage] = useState('all')
 
   useEffect(() => {
     setData({
@@ -34,7 +36,7 @@ const ServicesPage = (props) => {
           // ServiceStatus: <MDBLink className={value.ServiceStatus === "pending" ? "text-warning p-0" : "text-success p-0"} to='#'>{value.ServiceStatus}</MDBLink>,
           ServiceStatus: value.ServiceStatus,
           actions: <div><MDBLink className="text-primary d-inline mr-2 p-0" title="Edit" to={`/edit_service/${value.id}`}><MDBIcon fas icon="edit" /></MDBLink>
-          <MDBLink to="#" className="text-danger d-inline p-0" title="Delete" onClick={(e) => handleDeleteService(e, value.id)}><MDBIcon fas icon="trash-alt" /></MDBLink></div>,
+            <MDBLink to="#" className="text-danger d-inline p-0" title="Delete" onClick={(e) => handleDeleteService(e, value.id)}><MDBIcon fas icon="trash-alt" /></MDBLink></div>,
           clickEvent: row => testClickEvent(row)
         }
       })
@@ -81,6 +83,11 @@ const ServicesPage = (props) => {
     }
   }
 
+  const handleChangeActivePage = function (e, text) {
+    e.preventDefault();
+    setActivePage(text);
+  }
+
   const handleDeleteService = function (event, id) {
     event.preventDefault()
     console.log(id)
@@ -94,10 +101,10 @@ const ServicesPage = (props) => {
     }).then((result) => {
       if (result.isConfirmed) {
         firestore.collection('Services').doc(id).delete().then(() => {
-            firestore.collection('ServiceDetails').doc(id).delete().then(() => {
-              Swal.fire({ title: 'Success', text: 'Service Deleted Successfully', icon: 'success' }).then((value) => {
-                setServices(services.filter(x => x.id !== id));
-              })
+          firestore.collection('ServiceDetails').doc(id).delete().then(() => {
+            Swal.fire({ title: 'Success', text: 'Service Deleted Successfully', icon: 'success' }).then((value) => {
+              setServices(services.filter(x => x.id !== id));
+            })
           }).catch(err => {
             Swal.fire({ title: 'Error', text: err.message, icon: 'error' }).then((value) => { })
           })
@@ -122,34 +129,61 @@ const ServicesPage = (props) => {
       </MDBCard>
       <MDBNavbar color="white" light expand="xs" className="tabs-nav">
         <MDBNavbarNav left>
-          <MDBNavItem active>
-            <MDBNavLink to="/">All</MDBNavLink>
+          <MDBNavItem active={activePage === "all"}>
+            <MDBNavLink to="#" onClick={e => handleChangeActivePage(e, 'all')}>All</MDBNavLink>
           </MDBNavItem>
-          <MDBNavItem>
-            <MDBNavLink to="/">Status 1</MDBNavLink>
+          <MDBNavItem active={activePage === "active"}>
+            <MDBNavLink to="#" onClick={e => handleChangeActivePage(e, 'active')}>Active</MDBNavLink>
           </MDBNavItem>
-          <MDBNavItem>
-            <MDBNavLink to="/">Status 2</MDBNavLink>
+          <MDBNavItem active={activePage === "pending"}>
+            <MDBNavLink to="#" onClick={e => handleChangeActivePage(e, 'pending')}>Pending</MDBNavLink>
+          </MDBNavItem>
+          <MDBNavItem active={activePage === "inactive"}>
+            <MDBNavLink to="#" onClick={e => handleChangeActivePage(e, 'inactive')}>Inactive</MDBNavLink>
           </MDBNavItem>
         </MDBNavbarNav>
       </MDBNavbar>
-      <MDBCard>
-        <MDBCardBody>
-          <MDBDataTable responsive
-            bordered
-            entriesOptions={[10, 20, 25]}
-            entries={10}
-            pagesAmount={4}
-            data={data}
-            materialSearch
-            disableRetreatAfterSorting={true}
-            onPageChange={value => {
-              if (value.activePage === value.pagesAmount)
-                setTimeout(fetchServices(), 250);
-            }}
-          />
-        </MDBCardBody>
-      </MDBCard>
+      {activePage === "all" ?
+        <MDBCard>
+          <MDBCardBody>
+            <MDBDataTable
+              responsive
+              bordered
+              entriesOptions={[10, 20, 25]}
+              entries={10}
+              pagesAmount={4}
+              data={data}
+              materialSearch
+              disableRetreatAfterSorting={true}
+              onPageChange={value => {
+                if (value.activePage === value.pagesAmount)
+                  setTimeout(fetchServices(), 250);
+              }}
+            />
+          </MDBCardBody>
+        </MDBCard> :
+        <MDBCard>
+          <MDBCardBody>
+            <MDBDataTable
+              responsive
+              bordered
+              entriesOptions={[10, 20, 25]}
+              entries={10}
+              pagesAmount={4}
+              data={{
+                columns: data.columns,
+                rows: data.rows.filter(row => row.ServiceStatus === activePage)
+              }}
+              materialSearch
+              disableRetreatAfterSorting={true}
+              onPageChange={value => {
+                if (value.activePage === value.pagesAmount)
+                  setTimeout(fetchServices(), 250);
+              }}
+            />
+          </MDBCardBody>
+        </MDBCard>
+      }
     </React.Fragment>
 
   );

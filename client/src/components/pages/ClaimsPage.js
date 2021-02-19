@@ -21,13 +21,12 @@ const ClaimsPage = ({ claims, setClaims }) => {
       columns: data.columns,
       rows: claims.map(value => {
         return {
-          subject: 'abc',
-          description: 'abc',
-          attachment: <img src={image} className="img-thumbnail" alt="Image"
+          description: value.claimDescription,
+          attachment: <img src={value.claimAttachment} className="img-thumbnail" alt="Image"
           />,
-          actions: value.approve ?
-            <MDBLink className="text-primary p-0" to="#" onClick={e => { e.preventDefault(); ToggleEnableDisable(value.id, false) }}>Approve</MDBLink>
-            : <MDBLink to="#" className="text-danger p-0" onClick={e => { e.preventDefault(); ToggleEnableDisable(value.id, true) }}>Reject</MDBLink>,
+          actions: value.claimStatus === "Open" ?
+            <MDBLink className="text-primary p-0" to="#" onClick={e => { e.preventDefault(); }}>Approve</MDBLink>
+            : <MDBLink to="#" className="text-danger p-0" onClick={e => { e.preventDefault(); }}>Reject</MDBLink>,
           clickEvent: row => testClickEvent(row),
         }
       })
@@ -38,9 +37,9 @@ const ClaimsPage = ({ claims, setClaims }) => {
     if (claims.length > 0) {
       const lastClaim = claims[claims.length - 1]
       firestore
-        .collection('Users')
-        .orderBy('__name__', 'asc')
+        .collection('Claims')
         .limit(limit)
+        .orderBy('__name__', 'asc')
         .startAfter(lastClaim.id)
         .get()
         .then(querySnap => {
@@ -58,7 +57,8 @@ const ClaimsPage = ({ claims, setClaims }) => {
         })
     } else {
       firestore
-        .collection('Users')
+        .collection('Claims')
+        .orderBy('__name__', 'asc')
         .limit(limit)
         .get()
         .then(querySnap => {

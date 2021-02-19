@@ -70,7 +70,7 @@ export const TipsAndTricksCategories = {
     2200: "Heating And Air-Conditioning",
     2300: "Hose",
     2400: "Interior",
-    2500: "Laundary",
+    2500: "Laundry",
     2600: "Lights",
     2700: "Maintenance",
     2800: "Navigation",
