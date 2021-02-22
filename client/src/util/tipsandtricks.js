@@ -31,10 +31,10 @@ export const TipsAndTricksColumns = [
         label: 'Total Ratings',
         field: 'numRating',
     },
-    {
-        label: 'Status',
-        field: 'status',
-    },
+    // {
+    //     label: 'Status',
+    //     field: 'status',
+    // },
     {
         label: 'View Ratings',
         field: '_rating_',

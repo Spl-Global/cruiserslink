@@ -83,7 +83,7 @@ const EditUserPage = (props) => {
                     >
                         <h2 className='text-center'>Edit User</h2>
                         {error && <MDBAlert color={errorType}>{error}</MDBAlert>}
-                        <form className="mt-4">
+                        <form className="mt-4" onSubmit={e => e.preventDefault()}>
                             {loading ?
                                 <div className='my-5 d-flex justify-content-around'>
                                     <div className='spinner-border text-primary' role='status'>
@@ -101,7 +101,7 @@ const EditUserPage = (props) => {
                                                     })
                                                 }}
                                                 className="form-control custom-select">
-                                                <option value>User Type</option>
+                                                <option value={userData.userType}>User Type</option>
                                                 <option value="cruiser">cruiser</option>
                                                 <option value="business">business</option>
                                             </select>
@@ -132,7 +132,7 @@ const EditUserPage = (props) => {
                                             <select value={Status ? Status : ''}
                                                 onChange={e => handleChangeData(userType, "Status", e.target.value)}
                                                 className="form-control custom-select">
-                                                <option value>Status</option>
+                                                {/* <option value={userData.cruiserData.Status}>Status</option> */}
                                                 <option value="Couple">Couple</option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
@@ -168,7 +168,7 @@ const EditUserPage = (props) => {
                                                         })
                                                     }}
                                                     className="form-control custom-select">
-                                                    <option value>User Type</option>
+                                                    <option value={userData.userType}>User Type</option>
                                                     <option value="cruiser">cruiser</option>
                                                     <option value="business">business</option>
                                                 </select>
@@ -232,7 +232,7 @@ const EditUserPage = (props) => {
                                                     })
                                                 }}
                                                 className="form-control custom-select">
-                                                <option value>User Type</option>
+                                                <option value={userData.userType}>User Type</option>
                                                 <option value="cruiser">cruiser</option>
                                                 <option value="business">business</option>
                                             </select>

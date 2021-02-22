@@ -29,7 +29,7 @@ const ServicesPage = (props) => {
           ProductDescription: value.ProductDescription,
           Pricing: value.Pricing,
           ContactNumber: value.ContactNumber,
-          avgRating: value.avgRating,
+          avgRating: value.avgRating.toFixed(2),
           numRating: value.numRating,
           time: `${value.StartTime}:00 - ${value.EndTime <= 23 ? value.EndTime : 0}:00`,
           _rating_: <MDBLink className="text-primary p-0" to={`/ratingsandcomments/service/${value.id}`}>View Ratings</MDBLink>,
