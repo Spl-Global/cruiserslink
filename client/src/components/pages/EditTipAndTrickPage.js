@@ -72,7 +72,7 @@ const EditTipAndTrick = (props) => {
                                     <span className='sr-only'>Loading...</span>
                                 </div>
                             </div> :
-                            <form className="mt-4">
+                            <form className="mt-4" onSubmit={e => e.preventDefault()}>
                                 <div className="md-form form-group">
                                     <select onChange={e => {
                                         handleChangeData("category", JSON.parse(e.target.value));

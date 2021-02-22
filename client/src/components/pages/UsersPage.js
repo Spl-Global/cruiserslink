@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MDBDataTable, MDBCard, MDBCardBody, MDBAlert, MDBLink, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBBtn } from 'mdbreact';
+import { MDBDataTable, MDBCard, MDBCardBody, MDBAlert, MDBLink, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBBtn, MDBInput } from 'mdbreact';
 import { SetUsers } from '../../Redux/actions/actions';
 import { connect } from 'react-redux';
 import { firestore } from '../../services/base'
@@ -13,6 +13,7 @@ const UsersPage = ({ users, setUsers }) => {
   }
   const { currentUser } = useAuth();
   const [data, setData] = useState({ columns: userColumns, rows: [] })
+  const [toggle, setToggle] = useState(false)
   const [error, setError] = useState('')
   const history = useHistory()
   useEffect(() => {
@@ -73,7 +74,7 @@ const UsersPage = ({ users, setUsers }) => {
 
   const ToggleEnableDisable = async function (id, value) {
     try {
-      console.log(id,value)
+      console.log(id, value)
       const response = await fetch('/api/enable_disable', { method: 'POST', headers: { Authorization: `Bearer ${currentUser.uid}` }, body: JSON.stringify({ id: id, value: value }) })
       const jsonResponse = await response.json();
       console.log(jsonResponse, response.status)
@@ -89,29 +90,34 @@ const UsersPage = ({ users, setUsers }) => {
   useEffect(() => {
     fetchUsers()
   }, [])
+
+  const toggleModal = function (event) {
+    event.preventDefault();
+    setToggle(!toggle)
+  }
   return (
     <React.Fragment>
       <MDBCard className="mb-5">
         <MDBCardBody id="breadcrumb" className="d-flex align-items-center justify-content-between">
           <h2 className="mb-0">Users</h2>
-          <MDBBtn onClick={this.toggle}>Send Email</MDBBtn>
-          <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
-            <MDBModalHeader toggle={this.toggle}>Send Email</MDBModalHeader>
+          <MDBBtn onClick={toggleModal}>Send Email</MDBBtn>
+          <MDBModal isOpen={toggle} toggle={toggleModal}>
+            <MDBModalHeader toggle={toggleModal}>Send Email</MDBModalHeader>
             <MDBModalBody>
-            <MDBInput
-              label='Email Subject'
-              group
-              type='text'
-            />
-            <MDBInput
-              label='Email Body'
-              type='textarea'
-              group
-              rows="2"
-            />
+              <MDBInput
+                label='Email Subject'
+                group
+                type='text'
+              />
+              <MDBInput
+                label='Email Body'
+                type='textarea'
+                group
+                rows="2"
+              />
             </MDBModalBody>
             <MDBModalFooter>
-              <MDBBtn color="secondary" onClick={this.toggle}>Close</MDBBtn>
+              <MDBBtn color="secondary" onClick={toggleModal}>Close</MDBBtn>
               <MDBBtn color="primary">Send</MDBBtn>
             </MDBModalFooter>
           </MDBModal>
